@@ -1,1 +1,21 @@
 /*css styles*/
+.mx_stripe_wrap {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #333;
+	width: 100%;
+	height: 100%;
+}
+
+.mx_stripe_window {
+	width: 400px;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -200px;
+	background: #fff;
+	padding: 20px;
+	display: block;
+}

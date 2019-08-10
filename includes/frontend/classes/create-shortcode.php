@@ -171,7 +171,7 @@ class MXCPFC_Create_Shortcode
 			                    <div>
 			                    	<label for="customer_phone">Phone</label>
 			                    	<div>
-			                    		<input type="phone" name="customer_phone" value="" required />
+			                    		<input type="text" name="customer_phone" value="" required />
 			                    	</div>
 			                    </div>
 		                	</li>
@@ -219,11 +219,148 @@ class MXCPFC_Create_Shortcode
 			    </div>
 
 			</div>
+
+			<!-- Stripe window -->
+			<?php
+			require_once( dirname( __FILE__ ) . '/stripe-php/init.php' );
+
+			// Set your secret key: remember to change this to your live secret key in production
+			// See your keys here: https://dashboard.stripe.com/account/apikeys
+			\Stripe\Stripe::setApiKey('sk_test_Xj7NTqqOW3iyD');
+
+			$amount_for_stripe = intval( $options['custom_info']['amount'] ) * 100;
+
+			$intent = \Stripe\PaymentIntent::create([
+			    'amount' 		=> $amount_for_stripe,
+			    'currency' 		=> $options['custom_info']['currency'],
+			    'description' 	=> $options['custom_info']['offer'],
+			    'receipt_email' => $options['custom_info']['customer_email'],
+			]); ?>
+ 
+
+			<style>
+				/**
+				 * The CSS shown here will not be introduced in the Quickstart guide, but shows
+				 * how you can use CSS to style your Element's container.
+				 */
+				.StripeElement {
+				  box-sizing: border-box;
+
+				  height: 40px;
+
+				  padding: 10px 12px;
+
+				  border: 1px solid transparent;
+				  border-radius: 4px;
+				  background-color: white;
+
+				  box-shadow: 0 1px 3px 0 #e6ebf1;
+				  -webkit-transition: box-shadow 150ms ease;
+				  transition: box-shadow 150ms ease;
+				}
+
+				.StripeElement--focus {
+				  box-shadow: 0 1px 3px 0 #cfd7df;
+				}
+
+				.StripeElement--invalid {
+				  border-color: #fa755a;
+				}
+
+				.StripeElement--webkit-autofill {
+				  background-color: #fefde5 !important;
+				}
+			</style>
+
+			<div class="mx_stripe_wrap">
+
+				<div class="mx_stripe_window">				
+
+					<div class="form-row">
+						<label for="card-element">
+							Your name
+						</label>
+
+						<input id="mx_cardholder_name" type="text">
+
+					</div>
+
+					<div class="form-row">
+						<label for="card-element">
+							Credit or debit card
+						</label>
+
+						<div id="card-element"></div>
+
+						<!-- Used to display form errors. -->
+						<div id="card-errors" role="alert"></div>
+					</div>
+
+					<button id="mx_card_button" data-secret="<?= $intent->client_secret ?>">
+						Submit Payment for <?php echo $options['custom_info']['amount'] . ' ' . $options['custom_info']['currency']; ?>
+					</button>
+
+				</div>
+
+			</div>
+
+
+			<!-- collect paymet method -->
+			<script src="https://js.stripe.com/v3/"></script>
+
+			<script>
+				var stripe = Stripe('pk_test_wDthEqwj1h');
+
+				var elements = stripe.elements();
+
+				var style = {
+					base: {
+						color: '#32325d',
+						fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+						fontSmoothing: 'antialiased',
+						fontSize: '16px',
+						'::placeholder': {
+							color: '#aab7c4'
+						}
+					},
+					invalid: {
+						color: '#fa755a',
+						iconColor: '#fa755a'
+					}
+				};
+
+				var cardElement = elements.create('card', {style: style});
+				cardElement.mount('#card-element');
+
+				// submit the payment
+				var cardholderName = document.getElementById('mx_cardholder_name');
+				var cardButton = document.getElementById('mx_card_button');
+				var clientSecret = cardButton.dataset.secret;
+
+				cardButton.addEventListener('click', function(ev) {
+					stripe.handleCardPayment(
+						clientSecret, cardElement, {
+							payment_method_data: {
+								billing_details: {name: cardholderName.value}
+							}
+						}
+					).then(function(result) {
+						if (result.error) {
+							// Display error.message in your UI.
+							console.log(result.error);
+						} else {
+							// The payment has succeeded. Display a success message.
+							console.log('Success');
+						}
+					});
+				});
+
+			</script>
+
+
 			
 		</div>
 
-	<?php }
-
-		
+	<?php }		
 
 }
