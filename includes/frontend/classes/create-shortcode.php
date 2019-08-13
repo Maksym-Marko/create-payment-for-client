@@ -73,7 +73,7 @@ class MXCPFC_Create_Shortcode
 			'row_meta'			=> $row_meta,
 			'valid_meta' 		=> $valid_meta,
 			'valid_request' 	=> $valid_request,
-			'custom_info' 		=> $custom_info,
+			'custom_info' 		=> $custom_info
 
 		);
 
@@ -89,7 +89,30 @@ class MXCPFC_Create_Shortcode
 
 			<?php else : ?>
 
-				<h1>Invalid request</h1>
+				<h1>Invalid request <u style="font-size: 25px;"> - you don’t have any payment requests currently</u></h1>
+
+				<h2>How to get a free quotation from us for approval?</h2>
+
+				<p>
+					With this website we try to make it a breeze to find a solution for your project. <br>
+					Just get the best price, approve and pay, and put us to work for you swiftly.
+				</p>
+
+				<p>
+					We recommend you do this:
+				</p>
+				<p>
+					1) Go to the page <a href="/our-services/" target="_blank">Our Services</a> and select according to your project needs.
+				</p>
+				<p>
+					2) Next, you can get an idea on the approximate cost on page <a href="/services-pricing/" target="_blank">Services Pricing</a>.
+				</p>
+				<p>
+					3) Then you might send us a request for an individual quotation right from the form on this page or <a href="/services-pricing/#getprice" target="_blank">here</a> (please don’t forget to attach you document).
+				</p>
+				<p>
+					4) We will contact you quickly with detailed advice and our offer in order to discuss step by step your project and our potential cooperation.
+				</p>
 
 			<?php endif; ?>
 
@@ -99,124 +122,167 @@ class MXCPFC_Create_Shortcode
 
 	}
 
-	public static function payment_window_template( $options ){ ?>
+	public static function payment_window_template( $options ){
+
+		$data_payment_confirm = get_post_meta( $options['custom_info']['invoice_number'], '_meta_bill_confirm', true );
+
+		?>
 
 		<div class="mx-payment-window-wrap">
 
-			<div class="mx-payment-box-wrap">
-				
-				<h3 class="mx-payment-customer-name">Welcome, <?php echo $options['custom_info']['customer_name']; ?>!</h3>
+			<div class="mx-payment-box-wrap">				
 
-				<!--  -->
-				<div class="mx-invoice-description">
+				<div id="mx_payment_has_done" <?php echo $data_payment_confirm !== 'confirm' ? 'style="display: none;"' : ''; ?> >
 
-					<p>We have sent you invoice <b>#<?php echo $options['custom_info']['invoice_number']; ?></b> with a balance of <b><?php echo $options['custom_info']['amount']; ?> <?php echo $options['custom_info']['currency']; ?></b>.</p>
-        
-        			<p>Due Date: <?php echo get_the_date('d F Y', $options['custom_info']['invoice_number']); ?></p>
+					<h3 class="mx-payment-customer-name">Thank you, <?php echo $options['custom_info']['customer_name']; ?>!</h3>
+					
+					<p>
+						You just provided payment for this invoice. We have emailed you a receipt with details.
+					</p>
+					<p>
+						Please feel free to <a href="/contact-us/">contact us</a> at any time for information on progress of your project.
+					</p>
 					
 				</div>
 
-				<!--  -->
-				 <table>
-			        <thead>
-			          <tr>
-			            <th class="title_column">Offer</th>
-			            <th class="cost_column">Cost</th>
-			          </tr>
-			        </thead>
+				<?php if( $data_payment_confirm !== 'confirm' ) : ?>
+					
+					<div id="mx_invoice_information">
 
-			        <tbody>
-			    		<th class="title_column"><?php echo $options['custom_info']['offer']; ?></th>
-			            <th class="cost_column"><?php echo $options['custom_info']['amount']; ?> <?php echo $options['custom_info']['currency']; ?></th>
-					</tbody>
+						<h3 class="mx-payment-customer-name">Welcome, <?php echo $options['custom_info']['customer_name']; ?>!</h3>
 
-			    </table>
+						<!--  -->
+						<div class="mx-invoice-description">
 
-			    <!-- From -->
-			    <div class="mx-bill-from">
-			    	
-					<p><b>Bill From:</b></p>
-
-					<p>AVALON Linguistic</p>
-
-					<p>Kemp House 160 City Road London EC1V 2NX United Kingdom</p>
-
-					<p>44 203 195 3900</p>
-
-			    </div>
-
-			    <!-- Customer -->
-			    <div class="mx-customer-info">
-			    	
-					<form action="" id="mx_customer_info_form">
-						
-						<ul>
-							<li>
-			                    <div>
-			                    	<label for="customer_name">Full Name</label>
-			                    	<div>
-			                    		<input type="text" name="customer_name" value="<?php echo $options['custom_info']['customer_name']; ?>" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_email">Email Address</label>
-			                    	<div>
-			                    		<input type="email" name="customer_email" value="<?php echo $options['custom_info']['customer_email']; ?>" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_phone">Phone</label>
-			                    	<div>
-			                    		<input type="text" name="customer_phone" value="" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_address">Address</label>
-			                    	<div>
-			                    		<input type="text" name="customer_address" value="" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_city">City</label>
-			                    	<div>
-			                    		<input type="text" name="customer_city" value="" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_country">Country</label>
-			                    	<div>
-			                    		<input type="text" name="customer_country" value="" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-		                	<li>
-			                    <div>
-			                    	<label for="customer_state_province">State/Province</label>
-			                    	<div>
-			                    		<input type="text" name="customer_state_province" value="" required />
-			                    	</div>
-			                    </div>
-		                	</li>
-
-						</ul>
-
-						<div class="mx-payment-button-wrap">
-							<button type="submit">Process Payment of <span id="mx_pay_button_value"><?php echo $options['custom_info']['amount']; ?></span> <?php echo $options['custom_info']['currency']; ?></button>
+							<p>Invoice <b>#<?php echo $options['custom_info']['invoice_number']; ?></b></b>.</p>
+		        
+		        			<p>Due Date: <?php echo get_the_date('d F Y', $options['custom_info']['invoice_number'] ); ?></p>
+							
 						</div>
 
-					</form>
+						<!--  -->
+						 <table>
+					        <thead>
+					          <tr>
+					            <th class="title_column">Service</th>
+					            <th class="cost_column">Cost</th>
+					          </tr>
+					        </thead>
 
-			    </div>
+					        <tbody>
+					    		<th class="title_column"><?php echo $options['custom_info']['offer']; ?></th>
+					            <th class="cost_column"><?php echo $options['custom_info']['amount']; ?> <?php echo $options['custom_info']['currency']; ?></th>
+							</tbody>
+
+					    </table>
+
+					    <!-- From -->
+					    <div class="mx-bill-from">
+
+					    	<br><br>
+					    	
+							<p><b>Bill From:</b></p>
+
+							<p>Company</p>
+
+							<p>Kemp House 160 City Road London EC1V 2NX United Kingdom</p>
+
+							<p>Phone: +44 20 3290 3100</p>
+
+					    </div>
+
+					    <!-- Customer -->
+					    <div class="mx-customer-info">
+					    	
+							<form action="" id="mx_customer_info_form">
+
+								<br>
+					    	
+								<p><b>Personal information:</b></p>
+
+								<input type="hidden" id="invoice_number" name="invoice_number" value="<?php echo $options['custom_info']['invoice_number']; ?>" required />
+
+								<input type="hidden" id="mx_offer_type" name="mx_offer_type" value="<?php echo $options['custom_info']['offer']; ?>" required />
+
+								<input type="hidden" id="mx_bill_amount" name="mx_bill_amount" value="<?php echo $options['custom_info']['amount']; ?>" required />
+
+								<input type="hidden" id="mx_currency" name="mx_currency" value="<?php echo $options['custom_info']['currency']; ?>" required />								
+								<input type="hidden" id="mx_date_paid" name="mx_date_paid" value="<?php echo get_the_date('d F Y', $options['custom_info']['invoice_number'] ); ?>" required />
+
+								<ul>
+									<li>
+					                    <div>
+					                    	<label for="customer_name">Full Name</label>
+					                    	<div>
+					                    		<input type="text" id="customer_name" name="customer_name" value="<?php echo $options['custom_info']['customer_name']; ?>" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_email">Email Address</label>
+					                    	<div>
+					                    		<input type="email" id="customer_email" name="customer_email" value="<?php echo $options['custom_info']['customer_email']; ?>" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_phone">Phone</label>
+					                    	<div>
+					                    		<input type="text" id="customer_phone" name="customer_phone" value="" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_address">Street Address</label>
+					                    	<div>
+					                    		<input type="text" id="customer_address" name="customer_address" value="" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_city">City with ZIP / Postal code</label>
+					                    	<div>
+					                    		<input type="text" id="customer_city" name="customer_city" value="" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_country">Country</label>
+					                    	<div>
+					                    		<input type="text" id="customer_country" name="customer_country" value="" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+				                	<li>
+					                    <div>
+					                    	<label for="customer_state_province">State/Province</label>
+					                    	<div>
+					                    		<input type="text" id="customer_state_province" name="customer_state_province" value="" required />
+					                    	</div>
+					                    </div>
+				                	</li>
+
+								</ul>
+
+								<div class="mx-payment-button-wrap">
+									<button type="submit">Confirm information<span id="mx_pay_button_value"></button>								
+								</div>
+								<div class="mx-payment-contact-us-wrap">
+									or <a href="/contact-us/">Contact us</a>
+								</div>
+
+							</form>
+
+					    </div>
+
+					</div>
+
+				<?php endif; ?>
 
 			</div>
 
@@ -226,7 +292,7 @@ class MXCPFC_Create_Shortcode
 
 			// Set your secret key: remember to change this to your live secret key in production
 			// See your keys here: https://dashboard.stripe.com/account/apikeys
-			\Stripe\Stripe::setApiKey('sk_test_Xj7NTqqOW3iyD');
+			\Stripe\Stripe::setApiKey('sk_test_epg4y3EOHY2');		
 
 			$amount_for_stripe = intval( $options['custom_info']['amount'] ) * 100;
 
@@ -274,91 +340,107 @@ class MXCPFC_Create_Shortcode
 
 			<div class="mx_stripe_wrap">
 
-				<div class="mx_stripe_window">				
+				<div class="mx_stripe_window">	
 
-					<div class="form-row">
-						<label for="card-element">
-							Your name
-						</label>
+					<h5>Please kindly, check your personal information and submit the payment.</h5>			
+					<ul>
+						<li>Name: <span id="mx_show_customer_name"></span></li>
+						<li>Email: <span id="mx_show_customer_email"></span></li>
+						<li>Phone: <span id="mx_show_customer_phone"></span></li>
+						<li>Street Address: <span id="mx_show_customer_address"></span></li>
+						<li>Country: <span id="mx_show_customer_country"></span></li>
+						<li>City: <span id="mx_show_customer_city"></span></li>
+						<li>State/Province: <span id="mx_show_customer_state"></span></li>
+					</ul>
 
-						<input id="mx_cardholder_name" type="text">
+					<!-- payment method switcher -->
+					<h5 class="mx_pay_with_h">Pay with</h5>
+					
+					<div class="mx_payment_method_switcher">
+
+						<div class="mx_payment_method_switch_card mx_payment_method_active">
+							<svg class="SVGInline-svg SVGInline--cleaned-svg SVG-svg Icon-svg Icon--card-svg SVG--color-svg SVG--color--gray600-svg" style="width: 11px;height: 11px;" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M16 4H0v-.75C0 2.56.448 2 1 2h14c.552 0 1 .56 1 1.25zm0 2.5V13a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V6.5zM4 10a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2z" fill-rule="evenodd"></path></svg>
+
+							<span>Card</span>
+						</div>
+
+						<div class="mx_payment_method_switch_iban">
+							<svg class="SVGInline-svg SVGInline--cleaned-svg SVG-svg Icon-svg Icon--bank-svg SVG--color-svg SVG--color--gray600-svg" style="width: 11px;height: 11px;" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M1.02 6A1 1 0 0 1 .5 4.134C.82 3.95 3.32 2.572 8 0c4.681 2.572 7.181 3.95 7.5 4.134A1 1 0 0 1 14.98 6zM11 14V7.5h3V14h1a1 1 0 0 1 1 1v1H0v-1a1 1 0 0 1 1-1h1V7.5h3V14h1.5V7.5h3V14z" fill-rule="evenodd"></path></svg>
+
+							<span>Bank Transfer</span>
+						</div>
 
 					</div>
+					
 
-					<div class="form-row">
-						<label for="card-element">
-							Credit or debit card
-						</label>
+					<!-- Bank transfer... -->
+					<div class="mx_bank_transfer_section">
 
-						<div id="card-element"></div>
+						<form action="/" method="post" id="mx_payment_form">
+							
+							<input id="iban_customer_name" name="iban_customer_name" type="hidden" required />
 
-						<!-- Used to display form errors. -->
-						<div id="card-errors" role="alert"></div>
+							<input id="iban_customer_email" name="iban_customer_email" type="hidden" required />						
+
+							<div class="form-row">
+								<label for="iban-element">
+								IBAN
+								</label>
+								<div id="iban-element">
+								<!-- A Stripe Element will be inserted here. -->
+								</div>
+							</div>
+							<div id="bank-name"></div>
+
+							<button id="mx_iban_button" data-secret="<?= $intent->client_secret ?>">Submit Payment</button>
+
+							<!-- Used to display form errors. -->
+							<div id="error-message" role="alert"></div>
+
+							<!-- Display mandate acceptance text. -->
+							<div id="mandate-acceptance">
+								By providing your IBAN and confirming this payment, you are
+								authorizing Rocketship Inc. and Stripe, our payment service
+								provider, to send instructions to your bank to debit your account and
+								your bank to debit your account in accordance with those instructions.
+								You are entitled to a refund from your bank under the terms and
+								conditions of your agreement with your bank. A refund must be claimed
+								within 8 weeks starting from the date on which your account was debited.
+							</div>
+
+						</form>
+
 					</div>
+					<!-- ...Bank transfer -->
 
-					<button id="mx_card_button" data-secret="<?= $intent->client_secret ?>">
-						Submit Payment for <?php echo $options['custom_info']['amount'] . ' ' . $options['custom_info']['currency']; ?>
-					</button>
+					<!-- card payment... -->
+					<div class="mx_card_payment_section">
+
+						<div class="form-row">
+							<label for="card-element">
+								Credit or debit card
+							</label>
+
+							<div id="card-element"></div>
+
+							<!-- Used to display form errors. -->
+							<div id="card-errors" role="alert"></div>
+						</div>
+
+						<button id="mx_card_button" data-secret="<?= $intent->client_secret ?>">
+							Submit Payment for <?php echo $options['custom_info']['amount'] . ' ' . $options['custom_info']['currency']; ?>
+						</button>
+						
+					</div>
+					<!-- ...card payment -->
+					<div class="mx_cancel">
+						<a href="#" id="mx_change_information_button">Change information</a>
+					</div>
 
 				</div>
 
 			</div>
 
-
-			<!-- collect paymet method -->
-			<script src="https://js.stripe.com/v3/"></script>
-
-			<script>
-				var stripe = Stripe('pk_test_wDthEqwj1h');
-
-				var elements = stripe.elements();
-
-				var style = {
-					base: {
-						color: '#32325d',
-						fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-						fontSmoothing: 'antialiased',
-						fontSize: '16px',
-						'::placeholder': {
-							color: '#aab7c4'
-						}
-					},
-					invalid: {
-						color: '#fa755a',
-						iconColor: '#fa755a'
-					}
-				};
-
-				var cardElement = elements.create('card', {style: style});
-				cardElement.mount('#card-element');
-
-				// submit the payment
-				var cardholderName = document.getElementById('mx_cardholder_name');
-				var cardButton = document.getElementById('mx_card_button');
-				var clientSecret = cardButton.dataset.secret;
-
-				cardButton.addEventListener('click', function(ev) {
-					stripe.handleCardPayment(
-						clientSecret, cardElement, {
-							payment_method_data: {
-								billing_details: {name: cardholderName.value}
-							}
-						}
-					).then(function(result) {
-						if (result.error) {
-							// Display error.message in your UI.
-							console.log(result.error);
-						} else {
-							// The payment has succeeded. Display a success message.
-							console.log('Success');
-						}
-					});
-				});
-
-			</script>
-
-
-			
 		</div>
 
 	<?php }		

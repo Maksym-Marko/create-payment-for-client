@@ -29,6 +29,11 @@ class MXCPFC_FrontEnd_Main
 		mxcpfc_require_class_file_frontend( 'create-shortcode.php' );
 
 		MXCPFC_Create_Shortcode::mxcpfc_register_shortcodes();
+
+		// bill payment confirm
+		mxcpfc_require_class_file_frontend( 'ajax.php' );
+
+		MXCPFC_ajax::mxcpfc_register_ajax();		
 		
 	}
 

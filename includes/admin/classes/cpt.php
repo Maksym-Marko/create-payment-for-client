@@ -67,6 +67,7 @@ class MXCPFCCPTclass
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
+			'menu_icon' 		 => 'dashicons-products',
 			'supports'           => array( 'title', 'editor' )
 
 		) );
@@ -88,7 +89,7 @@ class MXCPFCCPTclass
 
 	    return 'Dear Jenny Johnson,
 
-			Thank you for your very nice enquiry, and welcome to Avalon.
+			Thank you for your very nice enquiry, and welcome to Company.
 
 			We will be happy to make this translation for your document, base on the word count, at just 6 Euro, edited like your original text.
 

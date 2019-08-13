@@ -48,7 +48,7 @@ class MXCPFCSendPaymentToClient extends MXCPFC_Model
 
 			$_from = wp_get_current_user()->data->user_email;
 
-			$headers = 'From: Avalon team <noreply@domain.com>' . "\r\n";
+			$headers = 'From: Company team <noreply@Company.com>' . "\r\n";
 
 			wp_mail( $email, 'Ordering and Payment', $message, $headers );
 

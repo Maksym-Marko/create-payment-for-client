@@ -166,19 +166,31 @@ class MXCPFCMetaboxesclass
 
 			$data = get_post_meta( $post->ID, '_meta_sent_to_client_data', true );
 
+			// payment confirm
+			$data_payment_confirm = get_post_meta( $post->ID, '_meta_bill_confirm', true );
+
 			wp_nonce_field( 'meta_sent_to_client_action', 'meta_sent_to_client_nonce' );
 
-			if( esc_attr($data) == '' ) {
+			if( $data_payment_confirm == 'confirm' ) { ?>
 
-				echo '<p id="mx_send_payment_to_client_text">Do you want to send this payment to the client?</p>';
+				<h4><u>Client already has paid for this bill.</u></h4>
+				<h5>If you want to add new payment request, please, create new payment item.</h5>
 
-				echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment</button></p>';
+			<?php } else {
 
-			} else {
+				if( esc_attr($data) == '' ) {
 
-				echo '<p id="mx_send_payment_to_client_text">You have sent payment to the client. Do you want do it one more time?</p>';
+					echo '<p id="mx_send_payment_to_client_text">Do you want to send this payment to the client?</p>';
 
-				echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment Again</button></p>';
+					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment</button></p>';
+
+				} else {
+
+					echo '<p id="mx_send_payment_to_client_text">You have sent payment to the client. Do you want do it one more time?</p>';
+
+					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment Again</button></p>';
+
+				}
 
 			}
 
@@ -302,7 +314,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_hash_action', 'meta_url_hash_nonce' ); 
 
-			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/payment-confirm/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
+			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/services/approve-the-quotation-and-pay/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
@@ -339,7 +351,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_to_client_action', 'meta_url_to_client_nonce' ); 
 
-			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/payment-confirm/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
+			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/services/approve-the-quotation-and-pay/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
