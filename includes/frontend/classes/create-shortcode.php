@@ -89,7 +89,12 @@ class MXCPFC_Create_Shortcode
 
 			<?php else : ?>
 
-				<h1>Invalid request <u style="font-size: 25px;"> - you don’t have any payment requests currently</u></h1>
+				<h1>Invalid request</h1>
+				<p>
+					<u style="font-size: 25px;">
+					 	you don’t have any payment requests currently
+					</u>
+				</p>
 
 				<h2>How to get a free quotation from us for approval?</h2>
 
@@ -185,9 +190,9 @@ class MXCPFC_Create_Shortcode
 
 							<p>Company</p>
 
-							<p>Kemp House 160 City Road London EC1V 2NX United Kingdom</p>
+							<p>Kemp House 111 City Road London United Kingdom</p>
 
-							<p>Phone: +44 20 3290 3100</p>
+							<p>Phone: +44 00 0000 0000</p>
 
 					    </div>
 
@@ -292,7 +297,7 @@ class MXCPFC_Create_Shortcode
 
 			// Set your secret key: remember to change this to your live secret key in production
 			// See your keys here: https://dashboard.stripe.com/account/apikeys
-			\Stripe\Stripe::setApiKey('sk_test_epg4y3EOHY2');		
+			\Stripe\Stripe::setApiKey('sk_test_stripe_key');		
 
 			$amount_for_stripe = intval( $options['custom_info']['amount'] ) * 100;
 
@@ -354,7 +359,7 @@ class MXCPFC_Create_Shortcode
 					</ul>
 
 					<!-- payment method switcher -->
-					<h5 class="mx_pay_with_h">Pay with</h5>
+					<!-- <h5 class="mx_pay_with_h">Pay with</h5>
 					
 					<div class="mx_payment_method_switcher">
 
@@ -370,7 +375,7 @@ class MXCPFC_Create_Shortcode
 							<span>Bank Transfer</span>
 						</div>
 
-					</div>
+					</div> -->
 					
 
 					<!-- Bank transfer... -->

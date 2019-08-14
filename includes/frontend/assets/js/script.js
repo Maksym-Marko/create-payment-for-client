@@ -34,7 +34,7 @@ jQuery( document ).ready( function( $ ){
 	} );
 
 	// Payments
-	var stripe = Stripe('pk_test_fto0BEnG9'); 
+	var stripe = Stripe('pk_test_stripe_key'); 
 
 	// stripe card payment method
 	if( document.getElementById('mx_card_button') !== null &&

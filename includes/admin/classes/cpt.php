@@ -91,7 +91,7 @@ class MXCPFCCPTclass
 
 			Thank you for your very nice enquiry, and welcome to Company.
 
-			We will be happy to make this translation for your document, base on the word count, at just 6 Euro, edited like your original text.
+			We will be happy to make this offer for you.
 
 			Here you can approve this quotation, confirm that you instruct us and can provide secure payment.
 			[url_to_client]

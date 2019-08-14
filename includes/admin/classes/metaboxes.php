@@ -314,7 +314,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_hash_action', 'meta_url_hash_nonce' ); 
 
-			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/services/approve-the-quotation-and-pay/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
+			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/wordpress/payment-confirmation/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
@@ -351,7 +351,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_to_client_action', 'meta_url_to_client_nonce' ); 
 
-			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/services/approve-the-quotation-and-pay/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
+			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/wordpress/payment-confirmation/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
