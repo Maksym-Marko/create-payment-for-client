@@ -286,7 +286,7 @@ class MXCPFC_Create_Shortcode
 					    </div>
 
 					</div>
-
+					
 				<?php endif; ?>
 
 			</div>

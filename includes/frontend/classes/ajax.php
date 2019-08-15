@@ -44,10 +44,6 @@ class MXCPFC_ajax
 	public static function payment_confirm( $_post )
 	{
 
-		$data = 'confirm';
-
-		update_post_meta( $_post['post_id'], '_meta_bill_confirm', $data );
-
 		add_filter( 'wp_mail_content_type', array( 'MXCPFC_ajax', 'set_html_content_type' ) );
 
 		$message = self::email_message_to_customer( $_post );			
@@ -56,7 +52,7 @@ class MXCPFC_ajax
 
 		wp_mail( $_post['customer_email'], 'Bill payment confirm', $message, $headers );
 
-		// Сбросим content-type, чтобы избежать возможного конфликта
+		// remove filter
 		remove_filter( 'wp_mail_content_type', array( 'MXCPFC_ajax', 'set_html_content_type' ) );
 
 		// report email
@@ -65,6 +61,12 @@ class MXCPFC_ajax
 		$message2 .= 'Check, please, your Stripe/Bank account.' . "\r\n";
 
 		wp_mail( $_post['owner_email'], 'Report. Bill payment confirm', $message2, $headers );
+
+		$data = 'confirm';
+
+		$data = sanitize_key( $data );
+
+		update_post_meta( $_post['post_id'], '_meta_bill_confirm', $data );
 
 		echo $data;
 

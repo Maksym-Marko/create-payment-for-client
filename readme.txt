@@ -1,4 +1,4 @@
-=== Create Payment (Stripe Gateway) ===
+=== Create a payment for a client ===
 Contributors: markomaksym
 Tags: stripe, payment gateway, payment
 Requires at least: 4.9
@@ -61,7 +61,7 @@ Stripe payment gateway. You can create a payment request for your client.
 			Replace "/wordpress/payment-confirmation/" to payment confirmation url on your website ( create-payment-for-client\includes\admin\classes\metaboxes.php )
 		</li>
 		<li>
-			Plase "[mxcpfc_payment_confirm_page]" shortcode to your payment confirmation page
+			Plaсe [mxcpfc_payment_confirm_page] shortcode to your payment confirmation page
 		</li>
 		
 	</ul>
