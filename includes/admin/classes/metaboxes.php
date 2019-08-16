@@ -147,7 +147,7 @@ class MXCPFCMetaboxesclass
 				'default'
 			);
 
-			// metabox of offer
+			// metabox has sent
 			add_meta_box(
 				'meta_sent_to_client',
 				'Sending payment request to client',
@@ -166,10 +166,10 @@ class MXCPFCMetaboxesclass
 
 			$data = get_post_meta( $post->ID, '_meta_sent_to_client_data', true );
 
+			wp_nonce_field( 'meta_sent_to_client_action', 'meta_sent_to_client_nonce' );
+
 			// payment confirm
 			$data_payment_confirm = get_post_meta( $post->ID, '_meta_bill_confirm', true );
-
-			wp_nonce_field( 'meta_sent_to_client_action', 'meta_sent_to_client_nonce' );
 
 			if( $data_payment_confirm == 'confirm' ) { ?>
 
@@ -298,7 +298,7 @@ class MXCPFCMetaboxesclass
 				if( !current_user_can( 'edit_post', $postID ) )
 					return;
 
-				$data = sanitize_text_field( $_POST['meta_of_customer_email_field'] ); 
+				$data = sanitize_email( $_POST['meta_of_customer_email_field'] ); 
 
 				update_post_meta( $postID, '_meta_customer_email_data', $data );
 
@@ -371,7 +371,7 @@ class MXCPFCMetaboxesclass
 				if( !current_user_can( 'edit_post', $postID ) )
 					return;
 
-				$data = sanitize_text_field( $_POST['meta_of_url_to_client_field'] ); 
+				$data = esc_url_raw( $_POST['meta_of_url_to_client_field'] ); 
 
 				update_post_meta( $postID, '_meta_url_to_client_data', $data );
 

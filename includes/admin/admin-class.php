@@ -78,7 +78,7 @@ class MXCPFC_Admin_Main
 	{
 
 		// ajax requests to main page
-		MXCPFC_Main_Page_Model::mxcpfc_wp_ajax();
+		// MXCPFC_Main_Page_Model::mxcpfc_wp_ajax();
 
 	}
 
@@ -88,22 +88,7 @@ class MXCPFC_Admin_Main
 	public function mxcpfc_routes_collection()
 	{
 
-		// main menu item
-		MXCPFC_Route::mxcpfc_get( 'MXCPFC_Main_Page_Controller', 'index', '', [
-			'page_title' => 'Main Menu title',
-			'menu_title' => 'Main menu'
-		] );
-
-		// sub menu item
-		MXCPFC_Route::mxcpfc_get( 'MXCPFC_Main_Page_Controller', 'submenu', '', [
-			'page_title' => 'Sub Menu title',
-			'menu_title' => 'Sub menu'
-		], 'sub_menu' );
-
-		// sub menu item
-		MXCPFC_Route::mxcpfc_get( 'MXCPFC_Main_Page_Controller', 'hidemenu', 'NULL', [
-			'page_title' => 'Hidden Menu title',
-		], 'hide_menu' );
+		// ...
 
 	}
 

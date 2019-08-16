@@ -24,15 +24,21 @@ class MXCPFCSendPaymentToClient extends MXCPFC_Model
 	*/
 	public static function prepare_payment_sending()
 	{
-		
+
 		// Checked POST nonce is not empty
 		if( empty( $_POST['nonce'] ) ) wp_die( '0' );
 
 		// Checked or nonce match
-		if( wp_verify_nonce( $_POST['nonce'], 'meta_sent_to_client_action' ) ){
+		if( wp_verify_nonce( $_POST['nonce'], 'meta_sent_to_client_action' ) ) {
+
+			$message = $_POST['message'];
+			$message = wp_kses( $message, 'default' );
+
+			$email = sanitize_email( $_POST['email'] );
+			$post_id = sanitize_key( $_POST['post_id'] );
 
 			// progress
-			self::progress_payment_sending( $_POST['message'], $_POST['email'], $_POST['post_id'] );			
+			self::progress_payment_sending( $message, $email, $post_id );			
 
 		}
 
@@ -54,6 +60,8 @@ class MXCPFCSendPaymentToClient extends MXCPFC_Model
 
 			// save metabox data of sendig
 			$data = 'true';
+
+			$data = sanitize_key( $data );
 
 			update_post_meta( $post_id, '_meta_sent_to_client_data', $data );
 
