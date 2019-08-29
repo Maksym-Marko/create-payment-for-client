@@ -72,7 +72,7 @@ class MXCPFC_ajax
 
 			$offer_type = sanitize_text_field(  $_post['offer_type'] );
 
-		$message2 = 'User ' . $customer_name . ' has paid ' . $bill_amount . $currency . ' for ' . $offer_type . ' on Company.com website.' . "\r\n";
+		$message2 = 'User ' . $customer_name . ' has paid ' . $bill_amount . $currency . ' for ' . $offer_type . ' on ' . get_home_url() . ' website.' . "\r\n";
 
 		$message2 .= 'Check, please, your Stripe/Bank account.' . "\r\n";
 

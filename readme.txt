@@ -1,6 +1,6 @@
 === Create a payment for a client ===
 Contributors: markomaksym
-Tags: stripe, payment gateway, payment, 3d secure
+Tags: stripe, payment gateway, payment, 3d secure, 3ds, Stripe SCA
 Requires at least: 4.9
 Tested up to: 5.2
 Stable tag: 2.0
@@ -25,6 +25,12 @@ Stripe payment gateway. You can create a payment request for your client.
 	Stripe dashboard: https://dashboard.stripe.com/test/payments?status%5B%5D=successful
 </p>
 
+<p>
+	<b>How does it work?</b>
+</p>
+
+<iframe width="600" height="320" src="https://www.youtube.com/embed/vAzz4AWMM50" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 == Installation ==
 
 = From your WordPress dashboard =
@@ -48,8 +54,8 @@ Stripe payment gateway. You can create a payment request for your client.
 
 == Changelog ==
 
-= 1.0 =
-* Create Payment. Stripe Card
-
 = 2.0 =
 * Admin panel for payment settings
+
+= 1.0 =
+* Create Payment. Stripe Card
