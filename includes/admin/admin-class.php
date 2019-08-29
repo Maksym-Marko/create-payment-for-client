@@ -78,7 +78,7 @@ class MXCPFC_Admin_Main
 	{
 
 		// ajax requests to main page
-		// MXCPFC_Main_Page_Model::mxcpfc_wp_ajax();
+		MXCPFC_Main_Page_Model::mxcpfc_wp_ajax();
 
 	}
 
@@ -88,7 +88,10 @@ class MXCPFC_Admin_Main
 	public function mxcpfc_routes_collection()
 	{
 
-		// ...
+		MXCPFC_Route::mxcpfc_get( 'MXCPFC_Main_Page_Controller', 'index', 'NULL', [
+			'page_title' => 'Create Payment settings',
+			'menu_title' => 'Create Payment settings',
+		], false, 'mxcpfc_payment_settings' );
 
 	}
 

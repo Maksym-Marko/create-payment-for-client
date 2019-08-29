@@ -34,7 +34,7 @@ jQuery( document ).ready( function( $ ){
 	} );
 
 	// Payments
-	var stripe = Stripe('pk_test_stripe_key'); 
+	var stripe = Stripe( mxcpfc_js_obj.pk_stripe_key ); 
 
 	// stripe card payment method
 	if( document.getElementById('mx_card_button') !== null &&
@@ -136,7 +136,7 @@ jQuery( document ).ready( function( $ ){
 						'action': 'mxcpfc_set_meta_payment_confirm',
 						'nonce': mxcpfc_js_obj.nonce,
 						'customer_email': customer_email,
-						'owner_email': 'company@gmail.com',
+						'owner_email': mxcpfc_js_obj.owner_email,
 						'customer_name': customer_name,
 						'offer_type': offer_type,
 						'bill_amount': bill_amount,

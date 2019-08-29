@@ -59,9 +59,7 @@ class MXCPFC_Create_Shortcode
 				'url_hash' 		=> get_post_meta( $row_meta->post_id, '_meta_url_hash_data', true ),
 				'url_to_client' 		=> get_post_meta( $row_meta->post_id, '_meta_url_to_client_data', true ),
 				'amount' 		=> get_post_meta( $row_meta->post_id, '_meta_of_amount_data', true ),
-				'count_of_words' 		=> get_post_meta( $row_meta->post_id, '_meta_count_of_words_data', true ),
 				'currency' 		=> get_post_meta( $row_meta->post_id, '_meta_currency_data', true ),
-				'price_per_word' 		=> get_post_meta( $row_meta->post_id, '_meta_price_per_word_data', true ),
 				
 			);
 
@@ -89,35 +87,15 @@ class MXCPFC_Create_Shortcode
 
 			<?php else : ?>
 
-				<h1>Invalid request</h1>
-				<p>
-					<u style="font-size: 25px;">
-					 	you don’t have any payment requests currently
-					</u>
-				</p>
+				<?php
 
-				<h2>How to get a free quotation from us for approval?</h2>
+					$text = self::get_payment_options()['invalid_request_message'];
 
-				<p>
-					With this website we try to make it a breeze to find a solution for your project. <br>
-					Just get the best price, approve and pay, and put us to work for you swiftly.
-				</p>
+					$thanks_text = str_replace( array( "\n", "\n\r" ), '<br />', $text );
 
-				<p>
-					We recommend you do this:
-				</p>
-				<p>
-					1) Go to the page <a href="/our-services/" target="_blank">Our Services</a> and select according to your project needs.
-				</p>
-				<p>
-					2) Next, you can get an idea on the approximate cost on page <a href="/services-pricing/" target="_blank">Services Pricing</a>.
-				</p>
-				<p>
-					3) Then you might send us a request for an individual quotation right from the form on this page or <a href="/services-pricing/#getprice" target="_blank">here</a> (please don’t forget to attach you document).
-				</p>
-				<p>
-					4) We will contact you quickly with detailed advice and our offer in order to discuss step by step your project and our potential cooperation.
-				</p>
+					echo $thanks_text;
+
+				?>
 
 			<?php endif; ?>
 
@@ -127,7 +105,8 @@ class MXCPFC_Create_Shortcode
 
 	}
 
-	public static function payment_window_template( $options ){
+	public static function payment_window_template( $options )
+	{
 
 		$data_payment_confirm = get_post_meta( $options['custom_info']['invoice_number'], '_meta_bill_confirm', true );
 
@@ -139,14 +118,15 @@ class MXCPFC_Create_Shortcode
 
 				<div id="mx_payment_has_done" <?php echo $data_payment_confirm !== 'confirm' ? 'style="display: none;"' : ''; ?> >
 
-					<h3 class="mx-payment-customer-name">Thank you, <?php echo $options['custom_info']['customer_name']; ?>!</h3>
-					
-					<p>
-						You just provided payment for this invoice. We have emailed you a receipt with details.
-					</p>
-					<p>
-						Please feel free to <a href="/contact-us/">contact us</a> at any time for information on progress of your project.
-					</p>
+					<?php
+
+					$text = self::get_payment_options()['thank_you_message'];
+
+					$thanks_text = str_replace( array( "\n", "\n\r" ), '<br />', $text );
+
+					echo $thanks_text;
+
+					?>
 					
 				</div>
 
@@ -188,11 +168,11 @@ class MXCPFC_Create_Shortcode
 					    	
 							<p><b>Bill From:</b></p>
 
-							<p>Company</p>
+							<p><?php echo self::get_payment_options()['company_name']; ?></p>
 
-							<p>Kemp House 111 City Road London United Kingdom</p>
+							<p><?php echo self::get_payment_options()['company_address']; ?></p>
 
-							<p>Phone: +44 00 0000 0000</p>
+							<p><?php echo self::get_payment_options()['company_phone']; ?></p>
 
 					    </div>
 
@@ -297,7 +277,7 @@ class MXCPFC_Create_Shortcode
 
 			// Set your secret key: remember to change this to your live secret key in production
 			// See your keys here: https://dashboard.stripe.com/account/apikeys
-			\Stripe\Stripe::setApiKey('sk_test_stripe_key');		
+			\Stripe\Stripe::setApiKey( self::get_payment_options()['secret_key'] );		
 
 			$amount_for_stripe = intval( $options['custom_info']['amount'] ) * 100;
 
@@ -448,6 +428,33 @@ class MXCPFC_Create_Shortcode
 
 		</div>
 
-	<?php }		
+	<?php }
+
+	public static function get_payment_options()
+	{
+		$payment_options = get_option( '_mx_create_paymetn_options' );
+
+		if( $payment_options ) {
+
+			$unserialize_options = maybe_unserialize( $payment_options );
+
+			return $unserialize_options;
+
+		}
+
+		return array(
+			'publishable_key' 			=> '',
+			'secret_key' 				=> '',
+			'process_page_url' 			=> '',
+			'company_email' 			=> '',
+			'department_company' 		=> '',
+			'company_name' 				=> '',
+			'message_for_client' 		=> '',
+			'company_address' 			=> '',
+			'company_phone' 			=> '',
+			'thank_you_message' 		=> '',
+			'invalid_request_message' 	=> ''
+		);
+	}
 
 }

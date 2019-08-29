@@ -10,8 +10,8 @@ class MXCPFCMetaboxesclass
 	* MXCPFCMetaboxesclass constructor
 	*/
 	public function __construct()
-	{		
-
+	{
+		
 	}
 
 	/*
@@ -21,12 +21,6 @@ class MXCPFCMetaboxesclass
 	{
 
 		add_action( 'add_meta_boxes', array( 'MXCPFCMetaboxesclass', 'mxcpfc_metaboxes_init' ) );
-
-		// save metabox data of price per word
-		add_action( 'save_post', array( 'MXCPFCMetaboxesclass', 'meta_data_price_per_word_save' ) );
-
-		// save metabox data of count of words
-		add_action( 'save_post', array( 'MXCPFCMetaboxesclass', 'meta_data_count_of_words_save' ) );
 
 		// save metabox data of amount
 		add_action( 'save_post', array( 'MXCPFCMetaboxesclass', 'meta_data_of_amount_save' ) );
@@ -56,18 +50,7 @@ class MXCPFCMetaboxesclass
 		*/
 		public static function mxcpfc_metaboxes_init() {
 
-
-			// metabox of price per word
-			add_meta_box(
-				'meta_price_per_word',
-				'Price per word',
-				array( 'MXCPFCMetaboxesclass', 'metabox_of_price_per_word' ),
-				'mxcpfc_payment',
-				'normal',
-				'default'
-			);
-
-			// metabox of price per word
+			// metabox of meta url
 			add_meta_box(
 				'meta_url_hash',
 				'Url Hash',
@@ -82,16 +65,6 @@ class MXCPFCMetaboxesclass
 				'meta_currency',
 				'Currency',
 				array( 'MXCPFCMetaboxesclass', 'metabox_currency' ),
-				'mxcpfc_payment',
-				'normal',
-				'default'
-			);
-
-			// metabox of count of words
-			add_meta_box(
-				'meta_count_of_words',
-				'Count of words',
-				array( 'MXCPFCMetaboxesclass', 'metabox_of_count_of_words' ),
 				'mxcpfc_payment',
 				'normal',
 				'default'
@@ -178,19 +151,31 @@ class MXCPFCMetaboxesclass
 
 			<?php } else {
 
-				if( esc_attr($data) == '' ) {
+				$payment_options = get_option( '_mx_create_paymetn_options' );
 
-					echo '<p id="mx_send_payment_to_client_text">Do you want to send this payment to the client?</p>';
+				if( $payment_options ) {
 
-					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment</button></p>';
+					if( esc_attr($data) == '' ) {
+
+						echo '<p id="mx_send_payment_to_client_text">Do you want to send this payment to the client?</p>';
+
+						echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment</button></p>';
+
+					} else {
+
+						echo '<p id="mx_send_payment_to_client_text">You have sent payment to the client. Do you want do it one more time?</p>';
+
+						echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment Again</button></p>';
+
+					}
 
 				} else {
 
-					echo '<p id="mx_send_payment_to_client_text">You have sent payment to the client. Do you want do it one more time?</p>';
-
-					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment Again</button></p>';
+					echo 'Please, <a href="' . get_admin_url() . 'options-general.php?page=mxcpfc_payment_settings">set up the payment options</a>.';
 
 				}
+
+				
 
 			}
 
@@ -314,7 +299,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_hash_action', 'meta_url_hash_nonce' ); 
 
-			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/wordpress/payment-confirmation/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
+			echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
@@ -351,7 +336,7 @@ class MXCPFCMetaboxesclass
 
 			wp_nonce_field( 'meta_url_to_client_action', 'meta_url_to_client_nonce' ); 
 
-			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/wordpress/payment-confirmation/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
+			echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="' 
 			. esc_attr($data) . '" readonly required /></p>';
 
 		}
@@ -415,42 +400,6 @@ class MXCPFCMetaboxesclass
 		/*____________________________________________________________________*/
 
 		/*
-		* Metabox of count of words
-		*/
-		public static function metabox_of_count_of_words( $post, $box ) {			
-
-			$data = get_post_meta( $post->ID, '_meta_count_of_words_data', true ); 
-
-			wp_nonce_field( 'meta_count_of_words_action', 'meta_count_of_words_nonce' ); 
-
-			echo '<p>Count of words: <input type="text" name="meta_count_of_words_field" id="meta_count_of_words_field" value="' 
-			. esc_attr($data) . '" required /></p>';
-
-		}
-
-			// save meta count of words
-			public static function meta_data_count_of_words_save( $postID ) {
-
-				if ( !isset( $_POST['meta_count_of_words_field'] ) ) 
-					return; 
-
-				if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-					return; 
-
-				if ( wp_is_post_revision( $postID ) ) 
-					return; 
-
-				if( !current_user_can( 'edit_post', $postID ) )
-					return;
-
-				$data = sanitize_text_field( $_POST['meta_count_of_words_field'] ); 
-
-				update_post_meta( $postID, '_meta_count_of_words_data', $data );
-
-			}
-		/*____________________________________________________________________*/
-		
-		/*
 		* Metabox of currency
 		*/
 		public static function metabox_currency( $post, $box ) {			
@@ -486,40 +435,28 @@ class MXCPFCMetaboxesclass
 			}
 		/*____________________________________________________________________*/
 
-		/*
-		* Metabox of price per word
-		*/
-		public static function metabox_of_price_per_word( $post, $box ) {			
 
-			$data = get_post_meta( $post->ID, '_meta_price_per_word_data', true ); 
+	public static function get_payment_options()
+	{
+		$payment_options = get_option( '_mx_create_paymetn_options' );
 
-			wp_nonce_field( 'meta_price_per_word_action', 'meta_price_per_word_nonce' ); 
+		if( $payment_options ) {
 
-			echo '<p>Price per word: <input type="text" name="meta_price_per_word_field" id="meta_price_per_word_field" value="' 
-			. esc_attr($data) . '" required /></p>';
+			$unserialize_options = maybe_unserialize( $payment_options );
+
+			return $unserialize_options;
 
 		}
 
-			// save meta price per word
-			public static function meta_data_price_per_word_save( $postID ) {
-
-				if ( !isset( $_POST['meta_price_per_word_field'] ) ) 
-					return; 
-
-				if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-					return; 
-
-				if ( wp_is_post_revision( $postID ) ) 
-					return; 
-
-				if( !current_user_can( 'edit_post', $postID ) )
-					return;
-
-				$data = sanitize_text_field( $_POST['meta_price_per_word_field'] ); 
-
-				update_post_meta( $postID, '_meta_price_per_word_data', $data );
-
-			}
-		/*____________________________________________________________________*/
+		return array(
+			'publishable_key' => '',
+			'secret_key' => '',
+			'process_page_url' => '',
+			'company_email' => '',
+			'department_company' => '',
+			'company_name' => '',
+			'message_for_client' => ''
+		);
+	}
 
 }

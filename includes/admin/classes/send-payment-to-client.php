@@ -54,7 +54,11 @@ class MXCPFCSendPaymentToClient extends MXCPFC_Model
 
 			$_from = wp_get_current_user()->data->user_email;
 
-			$headers = 'From: Company team <noreply@company.com>' . "\r\n";
+			$company_team = self::get_payment_options()['company_name'];
+
+			$noreply_email = self::get_payment_options()['noreply_email'];
+
+			$headers = 'From: ' . $company_team . ' <' . $noreply_email . '>' . "\r\n";
 
 			wp_mail( $email, 'Ordering and Payment', $message, $headers );
 
@@ -68,5 +72,33 @@ class MXCPFCSendPaymentToClient extends MXCPFC_Model
 			echo 'sent';
 
 		}
+
+	public static function get_payment_options()
+	{
+		$payment_options = get_option( '_mx_create_paymetn_options' );
+
+		if( $payment_options ) {
+
+			$unserialize_options = maybe_unserialize( $payment_options );
+
+			return $unserialize_options;
+
+		}
+
+		return array(
+			'publishable_key' 			=> '',
+			'secret_key' 				=> '',
+			'process_page_url' 			=> '',
+			'company_email' 			=> '',
+			'department_company' 		=> '',
+			'company_name' 				=> '',
+			'message_for_client' 		=> '',
+			'company_address' 			=> '',
+			'company_phone' 			=> '',
+			'thank_you_message' 		=> '',
+			'invalid_request_message' 	=> '',
+			'noreply_email' 			=> ''
+		);
+	}
 	
 }

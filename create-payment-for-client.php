@@ -4,7 +4,7 @@ Plugin Name: Create a payment for a client
 Plugin URI: https://github.com/Maxim-us/create-payment-for-client
 Description: Stripe payment gateway. You can create a payment request for your client.
 Author: Marko Maksym
-Version: 1.0
+Version: 2.0
 Author URI: https://github.com/Maxim-us
 */
 
@@ -74,7 +74,7 @@ if ( ! defined( 'MXCPFC_PLUGIN_ABS_PATH' ) ) {
 if ( ! defined( 'MXCPFC_PLUGIN_VERSION' ) ) {
 
 	// version
-	define( 'MXCPFC_PLUGIN_VERSION', '1.0' ); // Must be replaced before production on for example '1.0'
+	define( 'MXCPFC_PLUGIN_VERSION', '2.0' ); // Must be replaced before production on for example '1.0'
 
 }
 
@@ -120,6 +120,20 @@ if ( ! class_exists( 'MXCPFCCreatePaymentForClient' ) ) {
 
 		load_plugin_textdomain( 'mxcpfc-domain', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+	}
+
+	// add settings link
+	add_filter( 'plugin_action_links', 'mxcpfc_plugin_action_links', 10, 2 );
+
+	function mxcpfc_plugin_action_links( $actions, $plugin_file ){
+		if( false === strpos( $plugin_file, basename(__FILE__) ) )
+			return $actions;
+
+		$settings_link = '<a href="options-general.php?page=mxcpfc_payment_settings">Settings</a>';
+
+		array_unshift( $actions, $settings_link ); 
+		
+		return $actions; 
 	}
 
 }

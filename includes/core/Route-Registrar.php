@@ -44,6 +44,11 @@ class MXCPFC_Route_Registrar
 	public $sub_menu_slug = false;
 
 	/**
+	* set slug of sub menu
+	*/
+	public $settings_sub_menu_slug = false;
+
+	/**
 	* MXCPFC_Route_Registrar constructor
 	*/
 	public function __construct( ...$args )
@@ -81,7 +86,7 @@ class MXCPFC_Route_Registrar
 	* $sub_menu_slug 	- slug of sub menu
 	*
 	*/
-	public function mxcpfc_set_data( $controller, $action, $slug = MXCPFC_MAIN_MENU_SLUG, array $menu_properties, $sub_menu_slug = false )
+	public function mxcpfc_set_data( $controller, $action, $slug = MXCPFC_MAIN_MENU_SLUG, array $menu_properties, $sub_menu_slug = false, $settings_sub_menu_slug = false )
 	{
 
 		// set controller
@@ -120,6 +125,12 @@ class MXCPFC_Route_Registrar
 			$this->sub_menu_slug = $sub_menu_slug;
 
 			$mxcpfc_callback_function_menu = 'mxcpfc_create_admin_sub_menu';
+			
+		} elseif ( $settings_sub_menu_slug !== false ) {
+			
+			$this->settings_sub_menu_slug = $settings_sub_menu_slug;
+
+			$mxcpfc_callback_function_menu = 'mxcpfc_create_admin_settings_parent';
 			
 		}
 
@@ -191,5 +202,22 @@ class MXCPFC_Route_Registrar
 			}
 			
 		}
+
+	/**
+	* Settings parent
+	*/
+	public function mxcpfc_create_admin_settings_parent()
+	{
+		
+		// create a menu
+		add_options_page(
+			__( $this->properties['page_title'], 'mxcpfc-domain' ),
+			__( $this->properties['menu_title'], 'mxcpfc-domain' ),
+			$this->properties['capability'],
+			$this->settings_sub_menu_slug,
+			array( $this, 'mxcpfc_view_connector' )
+		);
+
+	}
 
 }

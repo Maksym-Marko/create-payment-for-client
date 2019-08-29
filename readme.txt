@@ -1,9 +1,9 @@
 === Create a payment for a client ===
 Contributors: markomaksym
-Tags: stripe, payment gateway, payment
+Tags: stripe, payment gateway, payment, 3d secure
 Requires at least: 4.9
 Tested up to: 5.2
-Stable tag: 1.0
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,58 +17,9 @@ Stripe payment gateway. You can create a payment request for your client.
 <p>
 	Your client will receive email with details of future payment and can pay for you by bill on your website.
 </p>
-<p>
-	Note. You must have basic web development skills to use this plugin.
-</p>
-<p>
-	Set up process:
-	<ul>
-		<li>
-			Replace "sk_test_stripe_key" to your stripe secret key ( create-payment-for-client\includes\frontend\classes\create-shortcode.php )
-		</li>
-		<li>
-			Replace "pk_test_stripe_key" to your stripe public key ( create-payment-for-client\includes\frontend\assets\js\script.js )
-		</li>
-		<li>
-			Replace "company@gmail.com" to your company email ( create-payment-for-client\includes\frontend\assets\js\script.js )
-		</li>
-		<li>
-			Replace "From: Company team <noreply@company.com>" to your company information ( create-payment-for-client\includes\admin\classes\send-payment-to-client.php )
-		</li>		
-		<li>
-			Replace "From: Company team <noreply@company.com>" to your company information ( create-payment-for-client\includes\frontend\classes\ajax.php )
-		</li>
-		<li>
-			Replace "Company Name" to your company name ( create-payment-for-client\includes\frontend\classes\ajax.php )
-		</li>
-		<li>
-			Replace "hello@company.com" to your company email ( create-payment-for-client\includes\frontend\classes\ajax.php )
-		</li>
-		<li>
-			Replace "+44 00 0000 0000" to your company phone ( create-payment-for-client\includes\frontend\classes\ajax.php )
-		</li>
-		<li>
-			Replace "https://company.com" to your company website ( create-payment-for-client\includes\frontend\classes\ajax.php )
-		</li>
-
-		<li>
-			Replace "Kemp House 111 City Road London United Kingdom" to your company address ( create-payment-for-client\includes\frontend\classes\create-shortcode.php )
-		</li>
-		<li>
-			Replace "+44 00 0000 0000" to your company phone ( create-payment-for-client\includes\frontend\classes\create-shortcode.php )
-		</li>
-		<li>
-			Replace "/wordpress/payment-confirmation/" to payment confirmation url on your website ( create-payment-for-client\includes\admin\classes\metaboxes.php )
-		</li>
-		<li>
-			Plaсe [mxcpfc_payment_confirm_page] shortcode to your payment confirmation page
-		</li>
-		
-	</ul>
-</p>
 
 <p>
-	Testing data: https://stripe.com/docs/testing#regulatory-cards
+	Testing data: https://stripe.com/docs/payments/3d-secure#regulatory-cards
 </p>
 <p>
 	Stripe dashboard: https://dashboard.stripe.com/test/payments?status%5B%5D=successful
@@ -93,8 +44,12 @@ Stripe payment gateway. You can create a payment request for your client.
 1. Create Payment Dashboard
 2. Payment confirmation page
 3. Stripe Card element
+4. Admin dashboard
 
 == Changelog ==
 
 = 1.0 =
 * Create Payment. Stripe Card
+
+= 2.0 =
+* Admin panel for payment settings

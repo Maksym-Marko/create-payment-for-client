@@ -126,6 +126,73 @@ jQuery( document ).ready( function( $ ) {
 		} );
 
 	} );
+
+	/**
+	* payment method option update
+	*/
+	$( '#mxcpfc_update_payment_options' ).on( 'submit', function( e ) {
+
+		e.preventDefault();
+
+		var _serialize = $( this ).serializeArray();
+
+		var _ajax = true;
+
+		$.each( _serialize, function( key, value ) {
+
+			var _value = value.value;
+
+			if( _value === '' ) {
+
+				_ajax = false;
+
+				alert( 'You have to fill out all fields!' );
+
+				return false;
+
+			}
+
+		} );
+
+		var nonce = $( '#mxcpfc_nonce_request' ).val();
+
+		var data = {
+			action: 		'mxcpfc_options_update',
+			nonce: 			nonce
+		};
+
+		$.each( _serialize, function( key, value ) {
+
+			var _name = value.name;
+			var _value = value.value;
+
+			data[_name] = _value
+
+		} );
+
+		if( _ajax ) {
+
+			jQuery.post( ajaxurl, data, function( response ) {
+
+				console.log( response );
+
+				if( response === 'success' ) {
+
+					alert( 'Options is updated!' );
+
+					window.location.href = '#mxcpfc_update_payment_options';
+
+				} else {
+
+					alert( 'Something went wrong. Try to change some option.' );
+
+				}
+
+			} );
+
+		}		
+
+	} );
 		
 	/*
 	* funcs
