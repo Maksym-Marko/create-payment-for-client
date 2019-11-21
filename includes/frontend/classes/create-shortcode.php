@@ -339,7 +339,7 @@ class MXCPFC_Create_Shortcode
 					</ul>
 
 					<!-- payment method switcher -->
-					<!-- <h5 class="mx_pay_with_h">Pay with</h5>
+					<h5 class="mx_pay_with_h">Pay with</h5>
 					
 					<div class="mx_payment_method_switcher">
 
@@ -355,7 +355,7 @@ class MXCPFC_Create_Shortcode
 							<span>Bank Transfer</span>
 						</div>
 
-					</div> -->
+					</div>
 					
 
 					<!-- Bank transfer... -->

@@ -2,8 +2,8 @@
 Contributors: markomaksym
 Tags: stripe, payment gateway, payment, 3d secure, 3ds, Stripe SCA
 Requires at least: 4.9
-Tested up to: 5.2
-Stable tag: 2.0
+Tested up to: 5.3
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ Stripe payment gateway. You can create a payment request for your client.
 4. Admin dashboard
 
 == Changelog ==
+
+= 3.0 =
+* IBAN payment method
 
 = 2.0 =
 * Admin panel for payment settings

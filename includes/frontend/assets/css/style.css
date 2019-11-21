@@ -102,6 +102,7 @@
 	width: 140px;
     padding: 0px 10px 0px;
     cursor: pointer;
+    font-size: 16px;
 }
 .mx_payment_method_switcher > div svg {
 	fill: #ddd;
