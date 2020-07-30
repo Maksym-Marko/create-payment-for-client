@@ -1,4 +1,4 @@
-<div class="mx-main-page-text-wrap">
+<div class="mx-main-page-text-wrap"> 
 	
 	<h1><?php echo __( 'Payment Settings', 'mxcpfc-domain' ); ?></h1>
 
@@ -193,6 +193,36 @@ endif; ?>
 			</textarea>
 			<p>
 				<?php echo __( 'Your users will see this message when they enter via a broken link (URL) to the payment process page.' ); ?>
+			</p>
+
+		</div>
+
+		<div class="mx-clear-fix">
+			<h3>Donation Settings</h3>
+		</div>
+
+		<!-- Donation  page -->
+		<div class="mx-block_wrap">
+
+			<h3><?php echo __( 'Donation page url', 'mxcpfc-domain' ); ?></h3>
+
+			<input type="text" value="<?php echo $data['donation_page_url']; ?>" name="mxcpfc_donation_page_url" id="mxcpfc_donation_page_url" required />
+
+			<p>
+				<?php echo __( 'For example: "donation" or "charity/donation"', 'mxcpfc-domain' ); ?>
+			</p>
+
+		</div>
+
+		<!-- Donation progress page -->
+		<div class="mx-block_wrap">
+
+			<h3><?php echo __( 'Donation progress page url', 'mxcpfc-domain' ); ?></h3>
+
+			<input type="text" value="<?php echo $data['donation_progress_page_url']; ?>" name="mxcpfc_donation_progress_page_url" id="mxcpfc_donation_progress_page_url" required />
+
+			<p>
+				<?php echo __( 'For example: "donation-progress" or "charity/donation-progress"', 'mxcpfc-domain' ); ?>
 			</p>
 
 		</div>

@@ -77,3 +77,10 @@
 .mxcpfc_save_notice {
     background: #bdf9cd;
 }
+
+/**/
+.mx-clear-fix {
+    clear: both;
+    width: 100%;
+    float: none;
+}

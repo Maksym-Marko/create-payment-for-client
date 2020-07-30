@@ -170,6 +170,8 @@ jQuery( document ).ready( function( $ ) {
 
 		} );
 
+		console.log( data );
+
 		if( _ajax ) {
 
 			jQuery.post( ajaxurl, data, function( response ) {
