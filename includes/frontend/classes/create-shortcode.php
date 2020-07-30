@@ -19,12 +19,25 @@ class MXCPFC_Create_Shortcode
 	*/
 	public static function mxcpfc_register_shortcodes()
 	{
+		add_shortcode( 'mxcpfc_payment_confirm_page', array( 'MXCPFC_Create_Shortcode', 'payment_confirm_page' ) );
+	}
+
+	public static function payment_confirm_page()
+	{
+
+		ob_start(); 
 
 		global $wpdb;
 
 		$valid_request = false;
 
 		$current_url = home_url( add_query_arg( null, null ));
+
+		if( ! isset( $_GET['payment_request'] ) ) {
+
+			echo 'invalid request.';
+			return;
+		}
 
 		$payment_request = $_GET['payment_request'];
 
@@ -45,6 +58,11 @@ class MXCPFC_Create_Shortcode
 
 			$valid_meta = true;
 
+		}
+
+		if( $row_meta === NULL ) {
+			echo 'invalid Get request.';
+			return;
 		}
 
 		// customer information
@@ -73,35 +91,29 @@ class MXCPFC_Create_Shortcode
 			'valid_request' 	=> $valid_request,
 			'custom_info' 		=> $custom_info
 
-		);
+		); ?>
 
-		add_shortcode( 'mxcpfc_payment_confirm_page', function() use ( $options ) {
+		<?php if( $options['valid_meta'] && $options['valid_request'] ) : ?>
 
-			ob_start(); ?>
+			<!-- <h1>Valid request and meta</h1> -->
 
-			<?php if( $options['valid_meta'] && $options['valid_request'] ) : ?>
+			<?php self::payment_window_template( $options ); ?>
 
-				<!-- <h1>Valid request and meta</h1> -->
+		<?php else : ?>
 
-				<?php self::payment_window_template( $options ); ?>
+			<?php
 
-			<?php else : ?>
+				$text = self::get_payment_options()['invalid_request_message'];
 
-				<?php
+				$thanks_text = str_replace( array( "\n", "\n\r" ), '<br />', $text );
 
-					$text = self::get_payment_options()['invalid_request_message'];
+				echo $thanks_text;
 
-					$thanks_text = str_replace( array( "\n", "\n\r" ), '<br />', $text );
+			?>
 
-					echo $thanks_text;
+		<?php endif; ?>
 
-				?>
-
-			<?php endif; ?>
-
-			<?php return ob_get_clean();
-
-		} );
+		<?php return ob_get_clean();
 
 	}
 

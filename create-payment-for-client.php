@@ -4,7 +4,7 @@ Plugin Name: Create a payment for a client
 Plugin URI: https://github.com/Maxim-us/create-payment-for-client
 Description: Stripe payment gateway. You can create a payment request for your client.
 Author: Marko Maksym
-Version: 3.0
+Version: 3.1
 Author URI: https://github.com/Maxim-us
 */
 
