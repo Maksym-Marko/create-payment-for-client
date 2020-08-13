@@ -76,6 +76,8 @@ class MXCPFC_Main_Page_Model extends MXCPFC_Model
 
 		$mxcpfc_process_page_url = sanitize_text_field( $_post['mxcpfc_process_page_url'] );
 
+		$mxcpfc_contact_us_page = sanitize_text_field( $_post['mxcpfc_contact_us_page'] );
+
 		$mxcpfc_company_email = sanitize_email( $_post['mxcpfc_company_email'] );
 
 		$mxcpfc_noreply_email = sanitize_email( $_post['mxcpfc_noreply_email'] );
@@ -94,10 +96,13 @@ class MXCPFC_Main_Page_Model extends MXCPFC_Model
 
 		$mxcpfc_invalid_request_message = wp_kses( $_post['mxcpfc_invalid_request_message'], 'default' );
 
+		$mxcpfc_enable_iban = sanitize_text_field( $_post['mxcpfc_enable_iban'] );
+
 		if(
 			$mxcpfc_publishable_key == '' ||
 			$mxcpfc_secret_key == '' ||
 			$mxcpfc_process_page_url == '' ||
+			$mxcpfc_contact_us_page == '' ||
 			$mxcpfc_company_email == '' ||
 			$mxcpfc_department_company == '' ||
 			$mxcpfc_company_name == '' ||
@@ -117,6 +122,7 @@ class MXCPFC_Main_Page_Model extends MXCPFC_Model
 				'publishable_key' 			=> $mxcpfc_publishable_key,
 				'secret_key' 				=> $mxcpfc_secret_key,
 				'process_page_url' 			=> $mxcpfc_process_page_url,
+				'contact_us_page' 			=> $mxcpfc_contact_us_page,
 				'company_email' 			=> $mxcpfc_company_email,
 				'department_company' 		=> $mxcpfc_department_company,
 				'company_name' 				=> $mxcpfc_company_name,
@@ -125,7 +131,8 @@ class MXCPFC_Main_Page_Model extends MXCPFC_Model
 				'company_phone' 			=> $mxcpfc_company_phone,
 				'thank_you_message' 		=> $mxcpfc_thank_you_message,
 				'invalid_request_message' 	=> $mxcpfc_invalid_request_message,
-				'noreply_email' 			=> $mxcpfc_noreply_email
+				'noreply_email' 			=> $mxcpfc_noreply_email,
+				'enable_iban' 				=> $mxcpfc_enable_iban
 			);
 
 			$payment_options = serialize( $serialize_potion );

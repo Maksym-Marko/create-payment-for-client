@@ -8,7 +8,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$( '#meta_of_invoice_number_field' ).val( invoice_number );
 
-	}
+	} 
 
 	// create URL
 	if( $( '#meta_of_url_to_client_field' ).val() === '' ) {
@@ -167,6 +167,16 @@ jQuery( document ).ready( function( $ ) {
 			var _value = value.value;
 
 			data[_name] = _value
+
+			if( value.name === 'mxcpfc_enable_iban' ) {
+
+				data['mxcpfc_enable_iban'] = 1;
+
+			} else {
+
+				data['mxcpfc_enable_iban'] = 0;
+
+			}		
 
 		} );
 

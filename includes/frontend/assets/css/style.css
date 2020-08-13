@@ -28,6 +28,7 @@
 	cursor: pointer;
 	margin: 20px auto;
 	display: block;
+	background: #d13760;
 }
 #card-element {
 	display: inline-block;
@@ -45,7 +46,6 @@
 }
 #mx_customer_info_form input {
 	width: 100% !important;
-    max-width: 500px !important;
 }
 #mx_customer_info_form ul {
 	list-style-type: none;
@@ -126,4 +126,87 @@
 .mx_pay_with_h {
 	margin: 0;
 	margin-bottom: 8px;
+}
+.mx_stripe_window *,
+#mx_customer_info_form *,
+#mx_invoice_information * {
+	font-family: 'Arial';
+	font-size: 16px;
+}
+.mx_stripe_window ul,
+#mx_customer_info_form ul {
+	list-style-type: none;
+    margin: 0;
+    margin-bottom: 25px;
+}
+.mx_stripe_window ul li {
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+.mx_stripe_window ul li span {
+    font-weight: 300;
+}
+.mx_payment_method_switcher > div {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+	padding: 8px 0px;
+}
+
+#mx_customer_info_form input {
+	color: #32325d;
+    font-size: 16px;
+    font-family: 'Arial';
+	background-color: transparent;
+    border: 1px solid grey;
+    border-radius: 4px;
+    display: block;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: 16px;
+    height: 40px;
+	padding-left: 8px;
+}
+.mx-payment-button-wrap button,
+#mx_card_button,
+#mx_iban_button {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    background: #cd2653;
+    border: none;
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.0333em;
+    line-height: 1.25;
+    margin: 0 auto;
+	margin-bottom: 20px;
+    margin-top: 20px;
+    opacity: 1;
+    padding: 1.1em 1.44em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.15s linear;
+}
+.mx-payment-customer-name {
+    margin: 6rem auto 3rem;
+    font-size: 40px;
+}
+#mx_invoice_information table,
+#mx_invoice_information table *,
+#mx_invoice_information hr {
+    border-color: #dcd7ca;
+}
+.mx_stripe_window h5 {
+    font-size: 18px;
+    text-align: center;
 }

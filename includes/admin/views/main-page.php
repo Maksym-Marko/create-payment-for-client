@@ -45,6 +45,19 @@
 
 		</div>
 
+		<!-- Contact us page -->
+		<div class="mx-block_wrap">
+
+			<h3><?php echo __( 'Contact us page', 'mxcpfc-domain' ); ?></h3>
+
+			<input type="text" value="<?php echo isset( $data['contact_us_page'] ) ? $data['contact_us_page'] : ''; ?>" name="mxcpfc_contact_us_page" id="mxcpfc_contact_us_page" required />
+
+			<p>
+				<?php echo __( 'For example: "contacts" or "support/contact-us"', 'mxcpfc-domain' ); ?>
+			</p>
+
+		</div>
+
 		<!-- Your company's email -->
 		<div class="mx-block_wrap">
 
@@ -197,52 +210,80 @@ endif; ?>
 
 		</div>
 
+		<!-- Enable IBAN -->
+		<div class="mx-block_wrap">
+
+			<h3><?php echo __( 'Enable IBAN', 'mxcpfc-domain' ); ?></h3>
+
+			<?php 
+
+				$_checked = '';
+
+				if( isset( $data['enable_iban'] ) && $data['enable_iban'] == 1 ) {
+
+					$_checked = 'checked';
+
+				}
+				
+			?>
+
+			<input type="checkbox" name="mxcpfc_enable_iban" id="mxcpfc_enable_iban" <?php echo $_checked; ?> />
+
+			<label for="mxcpfc_enable_iban">Enable IBAN</label>
+
+			<p>You have to enable SEPA Direct Debit payments in your Stripe account. <a href="https://stripe.com/docs/stripe-js/elements/iban" target="_blank">Learn more</a></p>
+
+		</div>
+
 		<div class="mx-clear-fix">
 			<h3>Donation Settings</h3>
 		</div>
 
 		<!-- Donation  page -->
-		<div class="mx-block_wrap">
+		<!-- <div class="mx-block_wrap">
 
 			<h3><?php echo __( 'Donation page url', 'mxcpfc-domain' ); ?></h3>
 
-			<input type="text" value="<?php echo $data['donation_page_url']; ?>" name="mxcpfc_donation_page_url" id="mxcpfc_donation_page_url" required />
+			<input type="text" value="<?php //echo $data['donation_page_url']; ?>" name="mxcpfc_donation_page_url" id="mxcpfc_donation_page_url" required />
 
 			<p>
 				<?php echo __( 'For example: "donation" or "charity/donation"', 'mxcpfc-domain' ); ?>
 			</p>
 
-		</div>
+		</div> -->
 
 		<!-- Donation progress page -->
-		<div class="mx-block_wrap">
+		<!-- <div class="mx-block_wrap">
 
 			<h3><?php echo __( 'Donation progress page url', 'mxcpfc-domain' ); ?></h3>
 
-			<input type="text" value="<?php echo $data['donation_progress_page_url']; ?>" name="mxcpfc_donation_progress_page_url" id="mxcpfc_donation_progress_page_url" required />
+			<input type="text" value="<?php //echo $data['donation_progress_page_url']; ?>" name="mxcpfc_donation_progress_page_url" id="mxcpfc_donation_progress_page_url" required />
 
 			<p>
 				<?php echo __( 'For example: "donation-progress" or "charity/donation-progress"', 'mxcpfc-domain' ); ?>
 			</p>
 
-		</div>
+		</div> -->
 
 		<!-- submit button -->
 		<div class="mx-block_wrap" style="text-align: center;">
+
 			<button type="submit" class="mx-save-payment-data" id="mx_save_payment_data">
 				<?php echo __( 'Save Payment data', 'mxcpfc-domain' ); ?>
-			</button>
+			</button>			
 
-			<p>
-				You can copy the shortcode below. Paste this shortcode to payment process page (that page slug you have entered above in special field).
-			</p>
-			<p style="font-weight: bold;">
-				[mxcpfc_payment_confirm_page]
-			</p>
-
-		</div>
-			
+		</div>			
 		
 	</form>	
+
+	<div class="mx-shortcodes">
+		<h3>Create a Payment for a Client</h3>
+		<p>
+			You should copy the shortcode below. Paste this shortcode to payment process page (that page slug you have entered above in special field).
+		</p>
+		<p style="font-weight: bold;">
+			[mxcpfc_payment_confirm_page]
+		</p>
+	</div>
 
 </div>
