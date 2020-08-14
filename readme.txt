@@ -1,21 +1,32 @@
-=== Create a payment for a client ===
+=== Create a payment request. Donation form ===
 Contributors: markomaksym
-Tags: stripe, payment gateway, payment, 3d secure, 3ds, Stripe SCA
+Tags: stripe, payment gateway, payment, 3d secure, 3ds, Stripe SCA, donation
 Requires at least: 4.9
 Tested up to: 5.5
-Stable tag: 3.2
+Stable tag: 4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Stripe payment gateway. You can create a payment request for your client.
+Stripe payment gateway. You can create a payment request for your client. There is functionality to create a Donation page.
 
 == Description ==
 
 <p>
-	You can create a payment request for your client. This plugin will create special link for.
+	You can create a payment request for your client. This plugin will create special link for the client.
 </p>
 <p>
 	Your client will receive email with details of future payment and can pay for you by bill on your website.
+</p>
+
+<h3><b>Donation page</b></h3>
+<p>
+	You can create a donation page to allow your users to make donations. You just should fill in the information on the Settings page and place the shortcode to the particular page.
+</p>
+
+<h3><b>Shortcodes:</b></h3>
+<p>
+	<b>Create a payment request</b> - [mxcpfc_payment_confirm_page] <br>
+	<b>Donation page</b> - [mxcpfc_payment_donation_page]
 </p>
 
 <p>
@@ -53,6 +64,9 @@ Stripe payment gateway. You can create a payment request for your client.
 4. Admin dashboard
 
 == Changelog ==
+
+= 4.0 =
+* You can create a donation page to allow your users to make donations.
 
 = 3.0 =
 * IBAN payment method

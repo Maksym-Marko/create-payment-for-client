@@ -93,7 +93,7 @@
 				                    <div>
 				                    	<label for="customer_name">Full Name</label>
 				                    	<div>
-				                    		<input type="text" id="customer_name" name="customer_name" value="<?php echo $options['custom_info']['customer_name']; ?>" required />
+				                    		<input type="text" id="customer_name" name="customer_name" value="<?php echo $options['custom_info']['customer_name']; ?>" readonly required />
 				                    	</div>
 				                    </div>
 			                	</li>
@@ -101,7 +101,7 @@
 				                    <div>
 				                    	<label for="customer_email">Email Address</label>
 				                    	<div>
-				                    		<input type="email" id="customer_email" name="customer_email" value="<?php echo $options['custom_info']['customer_email']; ?>" required />
+				                    		<input type="email" id="customer_email" name="customer_email" value="<?php echo $options['custom_info']['customer_email']; ?>" readonly required />
 				                    	</div>
 				                    </div>
 			                	</li>
@@ -149,10 +149,18 @@
 							</ul>
 
 							<div class="mx-payment-button-wrap">
+
 								<button type="submit">Confirm information<span id="mx_pay_button_value"></button>								
 							</div>
+
+							<?php if( isset( $_GET['donation'] ) ) : ?>
+
+								<a href="?">Change information</a><br><br>
+
+							<?php endif; ?>
+
 							<div class="mx-payment-contact-us-wrap">
-								or <a href="/<?php echo mxcpfc_get_payment_options()['contact_us_page']?>">Contact us</a>
+								<a href="/<?php echo mxcpfc_get_payment_options()['contact_us_page']?>">Contact us</a>
 							</div>
 
 						</form>
@@ -318,7 +326,17 @@
 				</div>
 				<!-- ...card payment -->
 				<div class="mx_cancel">
-					<a href="#" id="mx_change_information_button">Change information</a>
+
+					<?php if( isset( $_GET['donation'] ) ) : ?>
+
+						<a href="?">Change information</a>
+
+					<?php else : ?>
+
+						<a href="#" id="mx_change_information_button">Change information</a>
+
+					<?php endif; ?>
+					
 				</div>
 
 			</div>

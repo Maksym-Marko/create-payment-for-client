@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Create a payment for a client
+Plugin Name: Create a payment request. Donation form
 Plugin URI: https://github.com/Maxim-us/create-payment-for-client
-Description: Stripe payment gateway. You can create a payment request for your client.
+Description: Stripe payment gateway. You can create a payment request for your client. There is functionality to create a Donation page.
 Author: Marko Maksym
-Version: 3.2
+Version: 4.0
 Author URI: https://github.com/Maxim-us
 */
 
@@ -74,7 +74,7 @@ if ( ! defined( 'MXCPFC_PLUGIN_ABS_PATH' ) ) {
 if ( ! defined( 'MXCPFC_PLUGIN_VERSION' ) ) {
 
 	// version
-	define( 'MXCPFC_PLUGIN_VERSION', '3.2' ); // Must be replaced before production on for example '1.0'
+	define( 'MXCPFC_PLUGIN_VERSION', '4.0' ); // Must be replaced before production on for example '1.0'
 
 }
 

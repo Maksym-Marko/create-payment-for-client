@@ -129,12 +129,14 @@
 }
 .mx_stripe_window *,
 #mx_customer_info_form *,
-#mx_invoice_information * {
+#mx_invoice_information *,
+.mx-make-donation-wrap * {
 	font-family: 'Arial';
 	font-size: 16px;
 }
 .mx_stripe_window ul,
-#mx_customer_info_form ul {
+#mx_customer_info_form ul,
+.mx-make-donation-wrap ul {
 	list-style-type: none;
     margin: 0;
     margin-bottom: 25px;
@@ -157,11 +159,17 @@
 	padding: 8px 0px;
 }
 
-#mx_customer_info_form input {
+#mx_customer_info_form input[type="text"],
+#mx_customer_info_form input[type="email"],
+#mx_customer_info_form input[type="number"],
+.mx-make-donation-wrap input[type="text"],
+.mx-make-donation-wrap input[type="email"],
+.mx-make-donation-wrap input[type="number"],
+.mx-make-donation-wrap select {
 	color: #32325d;
     font-size: 16px;
     font-family: 'Arial';
-	background-color: transparent;
+	background-color: #fff;
     border: 1px solid grey;
     border-radius: 4px;
     display: block;
@@ -172,10 +180,12 @@
     font-size: 16px;
     height: 40px;
 	padding-left: 8px;
+	box-sizing: border-box;
 }
 .mx-payment-button-wrap button,
 #mx_card_button,
-#mx_iban_button {
+#mx_iban_button,
+.mx-button {
 	-webkit-appearance: none;
     -moz-appearance: none;
     background: #cd2653;
@@ -196,6 +206,7 @@
     text-decoration: none;
     text-transform: uppercase;
     transition: opacity 0.15s linear;
+    display: block;
 }
 .mx-payment-customer-name {
     margin: 6rem auto 3rem;
