@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 class MXCPFC_FrontEnd_Main
 {
@@ -11,7 +11,6 @@ class MXCPFC_FrontEnd_Main
 	*/
 	public function __construct()
 	{
-
 	}
 
 	/*
@@ -21,22 +20,20 @@ class MXCPFC_FrontEnd_Main
 	{
 
 		// enqueue_scripts class
-		mxcpfc_require_class_file_frontend( 'enqueue-scripts.php' );
+		mxcpfc_require_class_file_frontend('enqueue-scripts.php');
 
 		MXCPFC_Enqueue_Scripts_Frontend::mxcpfc_register();
 
 		// create shortcode call
-		mxcpfc_require_class_file_frontend( 'create-shortcode.php' );
+		mxcpfc_require_class_file_frontend('create-shortcode.php');
 
 		MXCPFC_Create_Shortcode::mxcpfc_register_shortcodes();
 
 		// bill payment confirm
-		mxcpfc_require_class_file_frontend( 'ajax.php' );
+		mxcpfc_require_class_file_frontend('ajax.php');
 
-		MXCPFC_ajax::mxcpfc_register_ajax();		
-		
+		MXCPFC_ajax::mxcpfc_register_ajax();
 	}
-
 }
 
 // Initialize

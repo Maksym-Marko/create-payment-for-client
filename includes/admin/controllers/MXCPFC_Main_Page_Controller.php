@@ -1,11 +1,11 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 class MXCPFC_Main_Page_Controller extends MXCPFC_Controller
 {
-	
+
 
 	public function index()
 	{
@@ -14,8 +14,6 @@ class MXCPFC_Main_Page_Controller extends MXCPFC_Controller
 
 		$data = $model_inst->mxcpfc_get_options();
 
-		return new MXCPFC_View( 'main-page', $data );		
-
+		return new MXCPFC_View('main-page', $data);
 	}
-
 }

@@ -1,9 +1,9 @@
-=== Create a payment request. Donation form ===
+=== Create a payment request. Donation form (Stripe) ===
 Contributors: markomaksym
 Tags: stripe, payment gateway, payment, 3d secure, 3ds, Stripe SCA, donation
 Requires at least: 4.9
-Tested up to: 5.5
-Stable tag: 4.0
+Tested up to: 6.3
+Stable tag: 4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Stripe payment gateway. You can create a payment request for your client. There 
 	You can create a payment request for your client. This plugin will create special link for the client.
 </p>
 <p>
-	Your client will receive email with details of future payment and can pay for you by bill on your website.
+	Your customer will receive an email with the details of the upcoming payment and will be able to pay you via an invoice on your website.
 </p>
 
 <h3><b>Donation page</b></h3>
@@ -64,6 +64,9 @@ Stripe payment gateway. You can create a payment request for your client. There 
 4. Admin dashboard
 
 == Changelog ==
+
+= 4.1 =
+* Tested up to WP 6.3. Fixed bugs. Changed stripe-php package.
 
 = 4.0 =
 * You can create a donation page to allow your users to make donations.

@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 class MXCPFCCPTclass
 {
@@ -10,8 +10,7 @@ class MXCPFCCPTclass
 	* MXCPFCCPTclass constructor
 	*/
 	public function __construct()
-	{		
-
+	{
 	}
 
 	/*
@@ -20,8 +19,7 @@ class MXCPFCCPTclass
 	public static function createCPT()
 	{
 
-		add_action( 'init', array( 'MXCPFCCPTclass', 'mxcpfc_custom_init' ) );
-
+		add_action('init', array('MXCPFCCPTclass', 'mxcpfc_custom_init'));
 	}
 
 	/*
@@ -30,8 +28,7 @@ class MXCPFCCPTclass
 	public static function mxcpfc_default_content()
 	{
 
-		add_filter( 'default_content', array( 'MXCPFCCPTclass', 'mxcpfc_preset_editor_content' ), 10, 2 );
-
+		add_filter('default_content', array('MXCPFCCPTclass', 'mxcpfc_preset_editor_content'), 10, 2);
 	}
 
 	/*
@@ -39,8 +36,8 @@ class MXCPFCCPTclass
 	*/
 	public static function mxcpfc_custom_init()
 	{
-		
-		register_post_type( 'mxcpfc_payment', array(
+
+		register_post_type('mxcpfc_payment', array(
 
 			'labels'             => array(
 				'name'               => 'Create Payment',
@@ -56,7 +53,7 @@ class MXCPFCCPTclass
 				'parent_item_colon'  => '',
 				'menu_name'          => 'Create Payment'
 
-			  ),
+			),
 			'public'             => false,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
@@ -68,26 +65,25 @@ class MXCPFCCPTclass
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'menu_icon' 		 => 'dashicons-products',
-			'supports'           => array( 'title', 'editor' )
+			'supports'           => array('title', 'editor')
 
-		) );
-
+		));
 	}
 
 	/*
 	* Default content
 	*/
-	public static function mxcpfc_preset_editor_content( $content, $post ) {
+	public static function mxcpfc_preset_editor_content($content, $post)
+	{
 
 		// global $post;
 
-		if ( $post->post_type !== 'mxcpfc_payment' || $content !== '' )
-		{
+		if ($post->post_type !== 'mxcpfc_payment' || $content !== '') {
 			return $content;
 		}
 
 
-	    return 'Dear Jenny Johnson,
+		return 'Dear Jenny Johnson,
 
 			Thank you for your very nice enquiry, and welcome to Company.
 
@@ -99,7 +95,5 @@ class MXCPFCCPTclass
 			You will receive an instant receipt, and we will start working on your project right away.
 
 			Kind regards.';
-
 	}
-
 }

@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 
 class MXCPFC_Basis_Plugin_Class
@@ -11,9 +11,6 @@ class MXCPFC_Basis_Plugin_Class
 
 	public static function activate()
 	{
-
-		
-
 	}
 
 	public static function deactivate()
@@ -21,7 +18,6 @@ class MXCPFC_Basis_Plugin_Class
 
 		// Rewrite rules
 		flush_rewrite_rules();
-
 	}
 
 	/*
@@ -30,8 +26,6 @@ class MXCPFC_Basis_Plugin_Class
 	public static function create_option_for_activation()
 	{
 
-		add_option( 'mxcpfc_flush_rewrite_rules', 'go_flush_rewrite_rules' );
-
+		add_option('mxcpfc_flush_rewrite_rules', 'go_flush_rewrite_rules');
 	}
-
 }

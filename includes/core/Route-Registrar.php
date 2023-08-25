@@ -86,7 +86,7 @@ class MXCPFC_Route_Registrar
 	* $sub_menu_slug 	- slug of sub menu
 	*
 	*/
-	public function mxcpfc_set_data( $controller, $action, $slug = MXCPFC_MAIN_MENU_SLUG, array $menu_properties, $sub_menu_slug = false, $settings_sub_menu_slug = false )
+	public function mxcpfc_set_data( $controller='', $action='', $slug = MXCPFC_MAIN_MENU_SLUG, array $menu_properties=[], $sub_menu_slug = false, $settings_sub_menu_slug = false )
 	{
 
 		// set controller

@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 class MXCPFCPaymentToClientHandlerClass
 {
@@ -10,8 +10,7 @@ class MXCPFCPaymentToClientHandlerClass
 	* MXCPFCPaymentToClientHandlerClass constructor
 	*/
 	public function __construct()
-	{		
-
+	{
 	}
 
 	/*
@@ -20,8 +19,7 @@ class MXCPFCPaymentToClientHandlerClass
 	public static function add_scripts_to_admin_footer()
 	{
 
-		add_action( 'admin_footer', array( 'MXCPFCPaymentToClientHandlerClass', 'mxcpfc_add_handler' ) );
-
+		add_action('admin_footer', array('MXCPFCPaymentToClientHandlerClass', 'mxcpfc_add_handler'));
 	}
 
 	/*
@@ -30,10 +28,11 @@ class MXCPFCPaymentToClientHandlerClass
 	public static function mxcpfc_add_handler()
 	{
 
-		if( get_post_type() !== 'mxcpfc_payment' )
+		if (get_post_type() !== 'mxcpfc_payment')
 			return;
 
-		// add html ?>
+		// add html 
+?>
 
 		<style>
 			#meta_of_url_to_client_field {
@@ -41,6 +40,5 @@ class MXCPFCPaymentToClientHandlerClass
 			}
 		</style>
 
-	<?php }
-
+<?php }
 }

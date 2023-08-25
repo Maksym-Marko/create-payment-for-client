@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 final class MXCPFCCreatePaymentForClient
 {
@@ -20,7 +20,7 @@ final class MXCPFCCreatePaymentForClient
 	* Include required core files
 	*/
 	public function mxcpfc_include()
-	{		
+	{
 
 		// helpers
 		require_once MXCPFC_PLUGIN_ABS_PATH . 'includes/core/helpers.php';
@@ -39,7 +39,6 @@ final class MXCPFCCreatePaymentForClient
 
 		// Controllers
 		require_once MXCPFC_PLUGIN_ABS_PATH . 'includes/core/Controller.php';
-
 	}
 
 	/*
@@ -50,7 +49,6 @@ final class MXCPFCCreatePaymentForClient
 
 		// Part of the Administrator
 		require_once MXCPFC_PLUGIN_ABS_PATH . 'includes/admin/admin-class.php';
-	
 	}
 
 	/*
@@ -61,9 +59,7 @@ final class MXCPFCCreatePaymentForClient
 
 		// Part of the Frontend
 		require_once MXCPFC_PLUGIN_ABS_PATH . 'includes/frontend/frontend-main.php';
-	
 	}
-
 }
 
 // create a new instance of final class
