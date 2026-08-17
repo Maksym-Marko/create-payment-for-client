@@ -63,13 +63,13 @@ final class MXCPFCCreatePaymentForClient
 }
 
 // create a new instance of final class
-$final_class_instance = new MXCPFCCreatePaymentForClient();
+$mxcpfc_final_class_instance = new MXCPFCCreatePaymentForClient();
 
 // run core files
-$final_class_instance->mxcpfc_include();
+$mxcpfc_final_class_instance->mxcpfc_include();
 
 // include admin parth
-$final_class_instance->mxcpfc_include_admin_path();
+$mxcpfc_final_class_instance->mxcpfc_include_admin_path();
 
 // include frontend parth
-$final_class_instance->mxcpfc_include_frontend_path();
+$mxcpfc_final_class_instance->mxcpfc_include_frontend_path();

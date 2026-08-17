@@ -77,6 +77,7 @@ abstract class Util
             self::$isMbstringAvailable = \function_exists('mb_detect_encoding') && \function_exists('mb_convert_encoding');
 
             if (!self::$isMbstringAvailable) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
                 \trigger_error('It looks like the mbstring extension is not enabled. ' .
                     'UTF-8 strings will not properly be encoded. Ask your system ' .
                     'administrator to enable the mbstring extension, or write to ' .

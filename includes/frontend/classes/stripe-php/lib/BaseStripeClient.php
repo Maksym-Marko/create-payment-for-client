@@ -186,7 +186,7 @@ class BaseStripeClient implements StripeClientInterface, StripeStreamingClientIn
             $received_class = \get_class($obj);
             $msg = "Expected to receive `Stripe\\Collection` object from Stripe API. Instead received `{$received_class}`.";
 
-            throw new \Stripe\Exception\UnexpectedValueException($msg);
+            throw new \Stripe\Exception\UnexpectedValueException(esc_html($msg));
         }
         $obj->setFilters($params);
 
@@ -210,7 +210,7 @@ class BaseStripeClient implements StripeClientInterface, StripeStreamingClientIn
             $received_class = \get_class($obj);
             $msg = "Expected to receive `Stripe\\SearchResult` object from Stripe API. Instead received `{$received_class}`.";
 
-            throw new \Stripe\Exception\UnexpectedValueException($msg);
+            throw new \Stripe\Exception\UnexpectedValueException(esc_html($msg));
         }
         $obj->setFilters($params);
 
@@ -233,7 +233,7 @@ class BaseStripeClient implements StripeClientInterface, StripeStreamingClientIn
                 . 'StripeClient instance, or provide it on a per-request basis '
                 . 'using the `api_key` key in the $opts argument.';
 
-            throw new \Stripe\Exception\AuthenticationException($msg);
+            throw new \Stripe\Exception\AuthenticationException(esc_html($msg));
         }
 
         return $apiKey;
@@ -254,13 +254,13 @@ class BaseStripeClient implements StripeClientInterface, StripeStreamingClientIn
         if (null !== $config['api_key'] && ('' === $config['api_key'])) {
             $msg = 'api_key cannot be the empty string';
 
-            throw new \Stripe\Exception\InvalidArgumentException($msg);
+            throw new \Stripe\Exception\InvalidArgumentException(esc_html($msg));
         }
 
         if (null !== $config['api_key'] && (\preg_match('/\s/', $config['api_key']))) {
             $msg = 'api_key cannot contain whitespace';
 
-            throw new \Stripe\Exception\InvalidArgumentException($msg);
+            throw new \Stripe\Exception\InvalidArgumentException(esc_html($msg));
         }
 
         // client_id
@@ -299,7 +299,7 @@ class BaseStripeClient implements StripeClientInterface, StripeStreamingClientIn
             // Wrap in single quote to more easily catch trailing spaces errors
             $invalidKeys = "'" . \implode("', '", $extraConfigKeys) . "'";
 
-            throw new \Stripe\Exception\InvalidArgumentException('Found unknown key(s) in configuration array: ' . $invalidKeys);
+            throw new \Stripe\Exception\InvalidArgumentException(esc_html('Found unknown key(s) in configuration array: ' . $invalidKeys));
         }
     }
 }

@@ -1,5 +1,7 @@
+<?php if (!defined('ABSPATH')) exit; ?>
 <form class="mx-make-donation-wrap" action="?donation=1" method="POST">
-	<input type="hidden" name="invoice_number" value="<?php echo time(); ?>">
+	<?php wp_nonce_field( 'mxcpfc_donation', 'mxcpfc_donation_nonce' ); ?>
+	<input type="hidden" name="invoice_number" value="<?php echo absint(time()); ?>">
 
 	<ul>
 

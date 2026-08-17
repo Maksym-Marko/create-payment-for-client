@@ -1,4 +1,15 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
+// Verify nonce from the donation form before processing any submitted data.
+if (
+    !isset($_POST['mxcpfc_donation_nonce']) ||
+    !wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mxcpfc_donation_nonce'] ) ), 'mxcpfc_donation' )
+) {
+    echo 'Try one more time! ';
+    echo '<a href="?">Back to donation page</a>';
+    return;
+}
 
 if (
     !isset($_POST['customer_email']) ||
@@ -14,20 +25,20 @@ if (
 }
 
 // create info array
-$custom_info = array(
-    'customer_name'         => $_POST['customer_name'],
+$mxcpfc_custom_info = array(
+    'customer_name'         => sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ),
     'offer'                 => 'Donate',
-    'invoice_number'        => $_POST['invoice_number'],
-    'customer_email'        => $_POST['customer_email'],
+    'invoice_number'        => sanitize_text_field( wp_unslash( $_POST['invoice_number'] ) ),
+    'customer_email'        => sanitize_email( wp_unslash( $_POST['customer_email'] ) ),
     'url_hash'              => 'hash',
-    'amount'                => $_POST['mx_bill_amount'],
-    'currency'              => $_POST['mx_currency']
+    'amount'                => sanitize_text_field( wp_unslash( $_POST['mx_bill_amount'] ) ),
+    'currency'              => sanitize_text_field( wp_unslash( $_POST['mx_currency'] ) )
 );
 
 // options
-$options = array(
+$mxcpfc_options = array(
 
-    'custom_info'       => $custom_info
+    'custom_info'       => $mxcpfc_custom_info
 
 );
 
@@ -35,4 +46,4 @@ $options = array(
 
 ?>
 
-<?php mxcpfc_include_component('create_payment/welcome-template', $options); ?>
+<?php mxcpfc_include_component('create_payment/welcome-template', $mxcpfc_options); ?>

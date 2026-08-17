@@ -1,8 +1,9 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
-$options = $variable;
+$mxcpfc_options = $variable;
 
-$data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'], '_meta_bill_confirm', true);
+$mxcpfc_data_payment_confirm = get_post_meta($mxcpfc_options['custom_info']['invoice_number'], '_meta_bill_confirm', true);
 
 ?>
 
@@ -10,32 +11,32 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 
 	<div class="mx-payment-box-wrap">
 
-		<div id="mx_payment_has_done" <?php echo $data_payment_confirm !== 'confirm' ? 'style="display: none;"' : ''; ?>>
+		<div id="mx_payment_has_done" <?php echo $mxcpfc_data_payment_confirm !== 'confirm' ? 'style="display: none;"' : ''; ?>>
 
 			<?php
 
-			$text = mxcpfc_get_payment_options()['thank_you_message'];
+			$mxcpfc_text = mxcpfc_get_payment_options()['thank_you_message'];
 
-			$thanks_text = str_replace(array("\n", "\n\r"), '<br />', $text);
+			$mxcpfc_thanks_text = str_replace(array("\n", "\n\r"), '<br />', $mxcpfc_text);
 
-			echo $thanks_text;
+			echo wp_kses( $mxcpfc_thanks_text, array( 'br' => array() ) );
 
 			?>
 
 		</div>
 
-		<?php if ($data_payment_confirm !== 'confirm') : ?>
+		<?php if ($mxcpfc_data_payment_confirm !== 'confirm') : ?>
 
 			<div id="mx_invoice_information">
 
-				<h3 class="mx-payment-customer-name">Welcome, <?php echo $options['custom_info']['customer_name']; ?>!</h3>
+				<h3 class="mx-payment-customer-name">Welcome, <?php echo esc_html($mxcpfc_options['custom_info']['customer_name']); ?>!</h3>
 
 				<!--  -->
 				<div class="mx-invoice-description">
 
-					<p>Invoice <b>#<?php echo $options['custom_info']['invoice_number']; ?></b></b>.</p>
+					<p>Invoice <b>#<?php echo esc_html($mxcpfc_options['custom_info']['invoice_number']); ?></b></b>.</p>
 
-					<p>Due Date: <?php echo get_the_date('d F Y', $options['custom_info']['invoice_number']); ?></p>
+					<p>Due Date: <?php echo esc_html( get_the_date('d F Y', $mxcpfc_options['custom_info']['invoice_number']) ); ?></p>
 
 				</div>
 
@@ -49,8 +50,8 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 					</thead>
 
 					<tbody>
-						<th class="title_column"><?php echo $options['custom_info']['offer']; ?></th>
-						<th class="cost_column"><?php echo $options['custom_info']['amount']; ?> <?php echo $options['custom_info']['currency']; ?></th>
+						<th class="title_column"><?php echo esc_html($mxcpfc_options['custom_info']['offer']); ?></th>
+						<th class="cost_column"><?php echo esc_html($mxcpfc_options['custom_info']['amount']); ?> <?php echo esc_html($mxcpfc_options['custom_info']['currency']); ?></th>
 					</tbody>
 
 				</table>
@@ -62,11 +63,11 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 
 					<p><b>Bill From:</b></p>
 
-					<p><?php echo mxcpfc_get_payment_options()['company_name']; ?></p>
+					<p><?php echo esc_html(mxcpfc_get_payment_options()['company_name']); ?></p>
 
-					<p><?php echo mxcpfc_get_payment_options()['company_address']; ?></p>
+					<p><?php echo esc_html(mxcpfc_get_payment_options()['company_address']); ?></p>
 
-					<p><?php echo mxcpfc_get_payment_options()['company_phone']; ?></p>
+					<p><?php echo esc_html(mxcpfc_get_payment_options()['company_phone']); ?></p>
 
 				</div>
 
@@ -79,21 +80,21 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 
 						<p><b>Personal information:</b></p>
 
-						<input type="hidden" id="invoice_number" name="invoice_number" value="<?php echo $options['custom_info']['invoice_number']; ?>" required />
+						<input type="hidden" id="invoice_number" name="invoice_number" value="<?php echo esc_attr($mxcpfc_options['custom_info']['invoice_number']); ?>" required />
 
-						<input type="hidden" id="mx_offer_type" name="mx_offer_type" value="<?php echo $options['custom_info']['offer']; ?>" required />
+						<input type="hidden" id="mx_offer_type" name="mx_offer_type" value="<?php echo esc_attr($mxcpfc_options['custom_info']['offer']); ?>" required />
 
-						<input type="hidden" id="mx_bill_amount" name="mx_bill_amount" value="<?php echo $options['custom_info']['amount']; ?>" required />
+						<input type="hidden" id="mx_bill_amount" name="mx_bill_amount" value="<?php echo esc_attr($mxcpfc_options['custom_info']['amount']); ?>" required />
 
-						<input type="hidden" id="mx_currency" name="mx_currency" value="<?php echo $options['custom_info']['currency']; ?>" required />
-						<input type="hidden" id="mx_date_paid" name="mx_date_paid" value="<?php echo get_the_date('d F Y', $options['custom_info']['invoice_number']); ?>" required />
+						<input type="hidden" id="mx_currency" name="mx_currency" value="<?php echo esc_attr($mxcpfc_options['custom_info']['currency']); ?>" required />
+						<input type="hidden" id="mx_date_paid" name="mx_date_paid" value="<?php echo esc_attr( get_the_date('d F Y', $mxcpfc_options['custom_info']['invoice_number']) ); ?>" required />
 
 						<ul>
 							<li>
 								<div>
 									<label for="customer_name">Full Name</label>
 									<div>
-										<input type="text" id="customer_name" name="customer_name" value="<?php echo $options['custom_info']['customer_name']; ?>" readonly required />
+										<input type="text" id="customer_name" name="customer_name" value="<?php echo esc_attr($mxcpfc_options['custom_info']['customer_name']); ?>" readonly required />
 									</div>
 								</div>
 							</li>
@@ -101,7 +102,7 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 								<div>
 									<label for="customer_email">Email Address</label>
 									<div>
-										<input type="email" id="customer_email" name="customer_email" value="<?php echo $options['custom_info']['customer_email']; ?>" readonly required />
+										<input type="email" id="customer_email" name="customer_email" value="<?php echo esc_attr($mxcpfc_options['custom_info']['customer_email']); ?>" readonly required />
 									</div>
 								</div>
 							</li>
@@ -153,14 +154,15 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 							<button type="submit">Confirm information<span id="mx_pay_button_value"></button>
 						</div>
 
-						<?php if (isset($_GET['donation'])) : ?>
+						<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						if (isset($_GET['donation'])) : ?>
 
 							<a href="?">Change information</a><br><br>
 
 						<?php endif; ?>
 
 						<div class="mx-payment-contact-us-wrap">
-							<a href="/<?php echo mxcpfc_get_payment_options()['contact_us_page'] ?>">Contact us</a>
+							<a href="<?php echo esc_url( '/' . mxcpfc_get_payment_options()['contact_us_page'] ); ?>">Contact us</a>
 						</div>
 
 					</form>
@@ -182,13 +184,13 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 	// See your keys here: https://dashboard.stripe.com/account/apikeys
 	\Stripe\Stripe::setApiKey(mxcpfc_get_payment_options()['secret_key']);
 
-	$amount_for_stripe = intval($options['custom_info']['amount']) * 100;
+	$mxcpfc_amount_for_stripe = intval($mxcpfc_options['custom_info']['amount']) * 100;
 
-	$intent = \Stripe\PaymentIntent::create([
-		'amount' 		=> $amount_for_stripe,
-		'currency' 		=> $options['custom_info']['currency'],
-		'description' 	=> $options['custom_info']['offer'],
-		'receipt_email' => $options['custom_info']['customer_email'],
+	$mxcpfc_intent = \Stripe\PaymentIntent::create([
+		'amount' 		=> $mxcpfc_amount_for_stripe,
+		'currency' 		=> $mxcpfc_options['custom_info']['currency'],
+		'description' 	=> $mxcpfc_options['custom_info']['offer'],
+		'receipt_email' => $mxcpfc_options['custom_info']['customer_email'],
 	]); ?>
 
 
@@ -288,7 +290,7 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 					</div>
 					<div id="bank-name"></div>
 
-					<button id="mx_iban_button" data-secret="<?= $intent->client_secret ?>">Submit Payment</button>
+					<button id="mx_iban_button" data-secret="<?php echo esc_attr( $mxcpfc_intent->client_secret ); ?>">Submit Payment</button>
 
 					<!-- Used to display form errors. -->
 					<div id="error-message" role="alert"></div>
@@ -323,15 +325,16 @@ $data_payment_confirm = get_post_meta($options['custom_info']['invoice_number'],
 					<div id="card-errors" role="alert"></div>
 				</div>
 
-				<button id="mx_card_button" data-secret="<?= $intent->client_secret ?>">
-					Submit Payment for <?php echo $options['custom_info']['amount'] . ' ' . $options['custom_info']['currency']; ?>
+				<button id="mx_card_button" data-secret="<?php echo esc_attr( $mxcpfc_intent->client_secret ); ?>">
+					Submit Payment for <?php echo esc_html($mxcpfc_options['custom_info']['amount'] . ' ' . $mxcpfc_options['custom_info']['currency']); ?>
 				</button>
 
 			</div>
 			<!-- ...card payment -->
 			<div class="mx_cancel">
 
-				<?php if (isset($_GET['donation'])) : ?>
+				<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if (isset($_GET['donation'])) : ?>
 
 					<a href="?">Change information</a>
 

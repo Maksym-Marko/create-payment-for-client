@@ -26,10 +26,11 @@ class MXCPFC_ajax
 	{
 
 		// Checked POST nonce is not empty
-		if (empty($_POST['nonce'])) wp_die('0');
+		$mxcpfc_nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( empty( $mxcpfc_nonce ) ) wp_die( '0' );
 
 		// Checked or nonce match
-		if (wp_verify_nonce($_POST['nonce'], 'nonce_payment_confirm')) {
+		if ( wp_verify_nonce( $mxcpfc_nonce, 'nonce_payment_confirm' ) ) {
 
 			self::payment_confirm($_POST);
 		}
@@ -82,7 +83,7 @@ class MXCPFC_ajax
 
 		update_post_meta($_post['post_id'], '_meta_bill_confirm', $data);
 
-		echo $data;
+		echo esc_html( $data );
 	}
 
 	public static function set_html_content_type()

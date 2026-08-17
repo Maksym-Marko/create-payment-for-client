@@ -26,7 +26,7 @@ trait Search
         $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
         if (!($obj instanceof \Stripe\SearchResult)) {
             throw new \Stripe\Exception\UnexpectedValueException(
-                'Expected type ' . \Stripe\SearchResult::class . ', got "' . \get_class($obj) . '" instead.'
+                esc_html('Expected type ' . \Stripe\SearchResult::class . ', got "' . \get_class($obj) . '" instead.')
             );
         }
         $obj->setLastResponse($response);

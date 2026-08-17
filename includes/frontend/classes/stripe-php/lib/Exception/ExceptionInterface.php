@@ -2,6 +2,10 @@
 
 namespace Stripe\Exception;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 // TODO: remove this check once we drop support for PHP 5
 if (\interface_exists(\Throwable::class, false)) {
     /**

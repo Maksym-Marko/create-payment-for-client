@@ -47,7 +47,8 @@ class MXCPFC_Model
 
 		}
 
-		$get_row = $this->wpdb->get_row( "SELECT $this->fields FROM $table_name WHERE $wher_name = $wher_value" );
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Identifiers are plugin-controlled, value is prepared.
+		$get_row = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT {$this->fields} FROM {$table_name} WHERE {$wher_name} = %s", $wher_value ) );
 
 		return $get_row;
 		
@@ -69,11 +70,13 @@ class MXCPFC_Model
 
 		if( $wher_name !== NULL ) {
 
-			$results = $this->wpdb->get_results( "SELECT $this->fields FROM $table_name WHERE $wher_name = $wher_value" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Identifiers are plugin-controlled, value is prepared.
+			$results = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT {$this->fields} FROM {$table_name} WHERE {$wher_name} = %s", $wher_value ) );
 
 		} else {
 
-			$results = $this->wpdb->get_results( "SELECT $this->fields FROM $table_name" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Identifiers are plugin-controlled.
+			$results = $this->wpdb->get_results( "SELECT {$this->fields} FROM {$table_name}" );
 
 		}		
 

@@ -160,16 +160,16 @@ class MXCPFCMetaboxesclass
 
 					echo '<p id="mx_send_payment_to_client_text">Do you want to send this payment to the client?</p>';
 
-					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment</button></p>';
+					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . absint($post->ID) . '">Send Payment</button></p>';
 				} else {
 
 					echo '<p id="mx_send_payment_to_client_text">You have sent payment to the client. Do you want do it one more time?</p>';
 
-					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . $post->ID . '">Send Payment Again</button></p>';
+					echo '<p><button class="button button-primary button-large" id="mx_send_payment_to_client" data-post-id="' . absint($post->ID) . '">Send Payment Again</button></p>';
 				}
 			} else {
 
-				echo 'Please, <a href="' . get_admin_url() . 'options-general.php?page=mxcpfc_payment_settings">set up the payment options</a>.';
+				echo 'Please, <a href="' . esc_url( get_admin_url() ) . 'options-general.php?page=mxcpfc_payment_settings">set up the payment options</a>.';
 			}
 		}
 	}
@@ -185,15 +185,18 @@ class MXCPFCMetaboxesclass
 
 		wp_nonce_field('meta_offer_action', 'meta_offer_nonce');
 
-		echo '<p>Offer: <input type="text" data-invoice-number="' . $post->ID . '" name="meta_of_offer_field" id="meta_of_offer_field" value="'
+		echo '<p>Offer: <input type="text" data-invoice-number="' . absint($post->ID) . '" name="meta_of_offer_field" id="meta_of_offer_field" value="'
 			. esc_attr($data) . '" required /></p>';
 	}
 
-	// save meta of invoice number
+	// save meta of offer
 	public static function meta_data_offer_save($postID)
 	{
 
 		if (!isset($_POST['meta_of_offer_field']))
+			return;
+
+		if (!isset($_POST['meta_offer_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_offer_nonce'])), 'meta_offer_action'))
 			return;
 
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -205,7 +208,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_text_field($_POST['meta_of_offer_field']);
+		$data = sanitize_text_field(wp_unslash($_POST['meta_of_offer_field']));
 
 		update_post_meta($postID, '_meta_offer_data', $data);
 	}
@@ -221,7 +224,7 @@ class MXCPFCMetaboxesclass
 
 		wp_nonce_field('meta_invoice_number_action', 'meta_invoice_number_nonce');
 
-		echo '<p>Invoice number: <input type="text" data-invoice-number="' . $post->ID . '" name="meta_of_invoice_number_field" id="meta_of_invoice_number_field" value="'
+		echo '<p>Invoice number: <input type="text" data-invoice-number="' . absint($post->ID) . '" name="meta_of_invoice_number_field" id="meta_of_invoice_number_field" value="'
 			. esc_attr($data) . '" readonly /></p>';
 	}
 
@@ -230,6 +233,9 @@ class MXCPFCMetaboxesclass
 	{
 
 		if (!isset($_POST['meta_of_invoice_number_field']))
+			return;
+
+		if (!isset($_POST['meta_invoice_number_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_invoice_number_nonce'])), 'meta_invoice_number_action'))
 			return;
 
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -241,7 +247,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_text_field($_POST['meta_of_invoice_number_field']);
+		$data = sanitize_text_field(wp_unslash($_POST['meta_of_invoice_number_field']));
 
 		update_post_meta($postID, '_meta_invoice_number_data', $data);
 	}
@@ -268,6 +274,9 @@ class MXCPFCMetaboxesclass
 		if (!isset($_POST['meta_of_customer_email_field']))
 			return;
 
+		if (!isset($_POST['meta_customer_email_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_customer_email_nonce'])), 'meta_customer_email_action'))
+			return;
+
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 			return;
 
@@ -277,14 +286,14 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_email($_POST['meta_of_customer_email_field']);
+		$data = sanitize_email(wp_unslash($_POST['meta_of_customer_email_field']));
 
 		update_post_meta($postID, '_meta_customer_email_data', $data);
 	}
 	/*____________________________________________________________________*/
 
 	/*
-		* Metabox of URL to client
+		* Metabox of URL hash
 		*/
 	public static function metabox_of_meta_url_hash($post, $box)
 	{
@@ -293,15 +302,18 @@ class MXCPFCMetaboxesclass
 
 		wp_nonce_field('meta_url_hash_action', 'meta_url_hash_nonce');
 
-		echo '<p>Url Hash: <input type="text" data-url-path="' . get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="'
+		echo '<p>Url Hash: <input type="text" data-url-path="' . esc_url( get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/' ) . '" name="meta_of_url_hash_field" id="meta_of_url_hash_field" value="'
 			. esc_attr($data) . '" readonly required /></p>';
 	}
 
-	// save meta of URL to client
+	// save meta of URL hash
 	public static function meta_data_url_hash_save($postID)
 	{
 
 		if (!isset($_POST['meta_of_url_hash_field']))
+			return;
+
+		if (!isset($_POST['meta_url_hash_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_url_hash_nonce'])), 'meta_url_hash_action'))
 			return;
 
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -313,7 +325,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_text_field($_POST['meta_of_url_hash_field']);
+		$data = sanitize_text_field(wp_unslash($_POST['meta_of_url_hash_field']));
 
 		update_post_meta($postID, '_meta_url_hash_data', $data);
 	}
@@ -330,7 +342,7 @@ class MXCPFCMetaboxesclass
 
 		wp_nonce_field('meta_url_to_client_action', 'meta_url_to_client_nonce');
 
-		echo '<p>URL to client: <input type="text" data-url-path="' . get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="'
+		echo '<p>URL to client: <input type="text" data-url-path="' . esc_url( get_home_url() . '/wordpress/' . self::get_payment_options()['process_page_url'] . '/' ) . '" name="meta_of_url_to_client_field" id="meta_of_url_to_client_field" value="'
 			. esc_attr($data) . '" readonly required /></p>';
 	}
 
@@ -339,6 +351,9 @@ class MXCPFCMetaboxesclass
 	{
 
 		if (!isset($_POST['meta_of_url_to_client_field']))
+			return;
+
+		if (!isset($_POST['meta_url_to_client_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_url_to_client_nonce'])), 'meta_url_to_client_action'))
 			return;
 
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -350,7 +365,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = esc_url_raw($_POST['meta_of_url_to_client_field']);
+		$data = esc_url_raw(wp_unslash($_POST['meta_of_url_to_client_field']));
 
 		update_post_meta($postID, '_meta_url_to_client_data', $data);
 	}
@@ -377,6 +392,9 @@ class MXCPFCMetaboxesclass
 		if (!isset($_POST['meta_of_amount_field']))
 			return;
 
+		if (!isset($_POST['meta_of_amount_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_of_amount_nonce'])), 'meta_of_amount_action'))
+			return;
+
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 			return;
 
@@ -386,7 +404,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_text_field($_POST['meta_of_amount_field']);
+		$data = sanitize_text_field(wp_unslash($_POST['meta_of_amount_field']));
 
 		update_post_meta($postID, '_meta_of_amount_data', $data);
 	}
@@ -404,7 +422,7 @@ class MXCPFCMetaboxesclass
 
 		<select name="meta_currency_field" id="meta_currency_field" required>
 			<?php foreach (self::$currencies as $currency) : ?>
-				<option value="<?php echo $currency; ?>" <?php echo $currency == $data ? 'selected' : ''; ?>><?php echo $currency; ?></option>
+				<option value="<?php echo esc_attr($currency); ?>" <?php selected($currency, $data); ?>><?php echo esc_html($currency); ?></option>
 			<?php endforeach; ?>
 		</select>
 
@@ -419,6 +437,9 @@ class MXCPFCMetaboxesclass
 		if (!isset($_POST['meta_currency_field']))
 			return;
 
+		if (!isset($_POST['meta_currency_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['meta_currency_nonce'])), 'meta_currency_action'))
+			return;
+
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 			return;
 
@@ -428,7 +449,7 @@ class MXCPFCMetaboxesclass
 		if (!current_user_can('edit_post', $postID))
 			return;
 
-		$data = sanitize_text_field($_POST['meta_currency_field']);
+		$data = sanitize_text_field(wp_unslash($_POST['meta_currency_field']));
 
 		update_post_meta($postID, '_meta_currency_data', $data);
 	}

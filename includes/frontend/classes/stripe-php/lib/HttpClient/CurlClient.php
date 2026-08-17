@@ -6,6 +6,13 @@ use Stripe\Exception;
 use Stripe\Stripe;
 use Stripe\Util;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// This class is Stripe's low-level cURL-based HTTP transport; cURL is required here.
+// phpcs:disable WordPress.WP.AlternativeFunctions.curl_curl_init, WordPress.WP.AlternativeFunctions.curl_curl_close, WordPress.WP.AlternativeFunctions.curl_curl_reset, WordPress.WP.AlternativeFunctions.curl_curl_exec, WordPress.WP.AlternativeFunctions.curl_curl_errno, WordPress.WP.AlternativeFunctions.curl_curl_error, WordPress.WP.AlternativeFunctions.curl_curl_getinfo, WordPress.WP.AlternativeFunctions.curl_curl_setopt_array
+
 // @codingStandardsIgnoreStart
 // PSR2 requires all constants be upper case. Sadly, the CURL_SSLVERSION
 // constants do not abide by those rules.
@@ -230,7 +237,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
                 $absUrl = "{$absUrl}?{$encoded}";
             }
         } else {
-            throw new Exception\UnexpectedValueException("Unrecognized method {$method}");
+            throw new Exception\UnexpectedValueException(esc_html("Unrecognized method {$method}"));
         }
 
         // It is only safe to retry network failures on POST requests if we
@@ -397,9 +404,9 @@ class CurlClient implements ClientInterface, StreamingClientInterface
             &$errno
         ) {
             $lastRHeaders = $rheaders;
-            $errno = \curl_errno($this->curlHandle);
+            $errno = \curl_errno($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_errno
 
-            $rcode = \curl_getinfo($this->curlHandle, \CURLINFO_HTTP_CODE);
+            $rcode = \curl_getinfo($this->curlHandle, \CURLINFO_HTTP_CODE); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_getinfo
 
             // Send the bytes from the body of a successful request to the caller-provided $readBodyChunk.
             if ($rcode < 300) {
@@ -442,11 +449,11 @@ class CurlClient implements ClientInterface, StreamingClientInterface
             $shouldRetry = false;
             $rbody = null;
             $this->resetCurlHandle();
-            \curl_setopt_array($this->curlHandle, $opts);
-            $result = \curl_exec($this->curlHandle);
-            $errno = \curl_errno($this->curlHandle);
+            \curl_setopt_array($this->curlHandle, $opts); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt_array
+            $result = \curl_exec($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_exec
+            $errno = \curl_errno($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_errno
             if (0 !== $errno) {
-                $message = \curl_error($this->curlHandle);
+                $message = \curl_error($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_error
             }
             if (!$this->getEnablePersistentConnections()) {
                 $this->closeCurlHandle();
@@ -496,14 +503,14 @@ class CurlClient implements ClientInterface, StreamingClientInterface
             $opts[\CURLOPT_HEADERFUNCTION] = $headerCallback;
 
             $this->resetCurlHandle();
-            \curl_setopt_array($this->curlHandle, $opts);
-            $rbody = \curl_exec($this->curlHandle);
+            \curl_setopt_array($this->curlHandle, $opts); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt_array
+            $rbody = \curl_exec($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_exec
 
             if (false === $rbody) {
-                $errno = \curl_errno($this->curlHandle);
-                $message = \curl_error($this->curlHandle);
+                $errno = \curl_errno($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_errno
+                $message = \curl_error($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_error
             } else {
-                $rcode = \curl_getinfo($this->curlHandle, \CURLINFO_HTTP_CODE);
+                $rcode = \curl_getinfo($this->curlHandle, \CURLINFO_HTTP_CODE); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_getinfo
             }
             if (!$this->getEnablePersistentConnections()) {
                 $this->closeCurlHandle();
@@ -576,7 +583,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
             $msg .= "\n\nRequest was retried {$numRetries} times.";
         }
 
-        throw new Exception\ApiConnectionException($msg);
+        throw new Exception\ApiConnectionException(esc_html($msg));
     }
 
     /**
@@ -677,7 +684,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
     private function initCurlHandle()
     {
         $this->closeCurlHandle();
-        $this->curlHandle = \curl_init();
+        $this->curlHandle = \curl_init(); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_init
     }
 
     /**
@@ -686,7 +693,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
     private function closeCurlHandle()
     {
         if (null !== $this->curlHandle) {
-            \curl_close($this->curlHandle);
+            \curl_close($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_close
             $this->curlHandle = null;
         }
     }
@@ -698,7 +705,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
     private function resetCurlHandle()
     {
         if (null !== $this->curlHandle && $this->getEnablePersistentConnections()) {
-            \curl_reset($this->curlHandle);
+            \curl_reset($this->curlHandle); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_reset
         } else {
             $this->initCurlHandle();
         }

@@ -118,7 +118,7 @@ class Source extends ApiResource
             $msg = "Could not determine which URL to request: {$class} instance "
              . "has invalid ID: {$id}";
 
-            throw new Exception\UnexpectedValueException($msg, null);
+            throw new Exception\UnexpectedValueException(esc_html($msg), null);
         }
 
         if ($this['customer']) {
@@ -135,7 +135,7 @@ class Source extends ApiResource
         $message = 'This source object does not appear to be currently attached '
                . 'to a customer object.';
 
-        throw new Exception\UnexpectedValueException($message);
+        throw new Exception\UnexpectedValueException(esc_html($message));
     }
 
     /**

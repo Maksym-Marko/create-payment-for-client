@@ -21,8 +21,10 @@ class DefaultLogger implements LoggerInterface
         }
 
         if (null === $this->destination) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             \error_log($message, $this->messageType);
         } else {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             \error_log($message, $this->messageType, $this->destination);
         }
     }

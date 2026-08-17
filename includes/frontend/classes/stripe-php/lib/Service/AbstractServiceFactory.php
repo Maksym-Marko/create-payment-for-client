@@ -62,7 +62,8 @@ abstract class AbstractServiceFactory
             return $this->services[$name];
         }
 
-        \trigger_error('Undefined property: ' . static::class . '::$' . $name);
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+        \trigger_error(esc_html('Undefined property: ' . static::class . '::$' . $name));
 
         return null;
     }

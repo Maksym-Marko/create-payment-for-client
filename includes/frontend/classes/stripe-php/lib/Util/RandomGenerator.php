@@ -17,7 +17,7 @@ class RandomGenerator
      */
     public function randFloat($max = 1.0)
     {
-        return \mt_rand() / \mt_getrandmax() * $max;
+        return wp_rand(0, \mt_getrandmax()) / \mt_getrandmax() * $max;
     }
 
     /**

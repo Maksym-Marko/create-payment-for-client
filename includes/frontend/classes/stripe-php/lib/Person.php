@@ -69,8 +69,8 @@ class Person extends ApiResource
         $account = $this['account'];
         if (!$id) {
             throw new Exception\UnexpectedValueException(
-                'Could not determine which URL to request: ' .
-                "class instance has invalid ID: {$id}",
+                esc_html('Could not determine which URL to request: ' .
+                "class instance has invalid ID: {$id}"),
                 null
             );
         }
@@ -96,7 +96,7 @@ class Person extends ApiResource
                "a person using `Account::retrievePerson('account_id', " .
                "'person_id')`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 
     /**
@@ -112,6 +112,6 @@ class Person extends ApiResource
                "a person using `Account::updatePerson('account_id', " .
                "'person_id', \$updateParams)`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 }

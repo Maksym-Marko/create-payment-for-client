@@ -37,7 +37,7 @@ class MXCPFC_FrontEnd_Main
 }
 
 // Initialize
-$initialize_admin_class = new MXCPFC_FrontEnd_Main();
+$mxcpfc_initialize_frontend_class = new MXCPFC_FrontEnd_Main();
 
 // include classes
-$initialize_admin_class->mxcpfc_additional_classes();
+$mxcpfc_initialize_frontend_class->mxcpfc_additional_classes();

@@ -50,7 +50,7 @@ class CustomerBalanceTransaction extends ApiResource
         $customer = $this['customer'];
         if (!$id) {
             throw new Exception\UnexpectedValueException(
-                "Could not determine which URL to request: class instance has invalid ID: {$id}",
+                esc_html("Could not determine which URL to request: class instance has invalid ID: {$id}"),
                 null
             );
         }
@@ -77,7 +77,7 @@ class CustomerBalanceTransaction extends ApiResource
                "`Customer::retrieveBalanceTransaction('customer_id', " .
                "'balance_transaction_id')`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 
     /**
@@ -94,6 +94,6 @@ class CustomerBalanceTransaction extends ApiResource
                "`Customer::updateBalanceTransaction('customer_id', " .
                "'balance_transaction_id', \$updateParams)`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 }

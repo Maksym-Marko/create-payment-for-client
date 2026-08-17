@@ -162,8 +162,8 @@ class MXCPFC_Route_Registrar
 	public function mxcpfc_create_admin_main_menu()
 	{
 
-		add_menu_page( __( $this->properties['page_title'], 'mxcpfc-domain' ),
-			 __( $this->properties['menu_title'], 'mxcpfc-domain' ),
+		add_menu_page( $this->properties['page_title'],
+			 $this->properties['menu_title'],
 			 $this->properties['capability'],
 			 $this->slug,
 			 array( $this, 'mxcpfc_view_connector' ),
@@ -180,8 +180,8 @@ class MXCPFC_Route_Registrar
 		
 		// create a menu
 		add_submenu_page( $this->slug,
-			 __( $this->properties['page_title'], 'mxcpfc-domain' ),
-			 __( $this->properties['menu_title'], 'mxcpfc-domain' ),
+			 $this->properties['page_title'],
+			 $this->properties['menu_title'],
 			 $this->properties['capability'],
 			 $this->sub_menu_slug,
 			 array( $this, 'mxcpfc_view_connector' )
@@ -211,8 +211,8 @@ class MXCPFC_Route_Registrar
 		
 		// create a menu
 		add_options_page(
-			__( $this->properties['page_title'], 'mxcpfc-domain' ),
-			__( $this->properties['menu_title'], 'mxcpfc-domain' ),
+			$this->properties['page_title'],
+			$this->properties['menu_title'],
 			$this->properties['capability'],
 			$this->settings_sub_menu_slug,
 			array( $this, 'mxcpfc_view_connector' )

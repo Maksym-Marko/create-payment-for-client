@@ -32,7 +32,7 @@ class MXCPFC_View
 
 			<div class="notice notice-error is-dismissible">
 
-			    <p>The view file "<b>includes/admin/views/<?php echo $file; ?>.php</b>" doesn't exists.</p>
+			    <p>The view file "<b>includes/admin/views/<?php echo esc_html( $file ); ?>.php</b>" doesn't exists.</p>
 			    
 			</div>
 		<?php }

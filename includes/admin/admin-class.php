@@ -98,16 +98,16 @@ class MXCPFC_Admin_Main
 }
 
 // Initialize
-$initialize_admin_class = new MXCPFC_Admin_Main();
+$mxcpfc_initialize_admin_class = new MXCPFC_Admin_Main();
 
 // include classes
-$initialize_admin_class->mxcpfc_additional_classes();
+$mxcpfc_initialize_admin_class->mxcpfc_additional_classes();
 
 // include models
-$initialize_admin_class->mxcpfc_models_collection();
+$mxcpfc_initialize_admin_class->mxcpfc_models_collection();
 
 // ajax requests
-$initialize_admin_class->mxcpfc_registration_ajax_actions();
+$mxcpfc_initialize_admin_class->mxcpfc_registration_ajax_actions();
 
 // include controllers
-$initialize_admin_class->mxcpfc_routes_collection();
+$mxcpfc_initialize_admin_class->mxcpfc_routes_collection();

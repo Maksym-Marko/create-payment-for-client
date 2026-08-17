@@ -30,15 +30,15 @@ abstract class WebhookSignature
         if (-1 === $timestamp) {
             throw Exception\SignatureVerificationException::factory(
                 'Unable to extract timestamp and signatures from header',
-                $payload,
-                $header
+                esc_html($payload),
+                esc_html($header)
             );
         }
         if (empty($signatures)) {
             throw Exception\SignatureVerificationException::factory(
                 'No signatures found with expected scheme',
-                $payload,
-                $header
+                esc_html($payload),
+                esc_html($header)
             );
         }
 
@@ -57,8 +57,8 @@ abstract class WebhookSignature
         if (!$signatureFound) {
             throw Exception\SignatureVerificationException::factory(
                 'No signatures found matching the expected signature for payload',
-                $payload,
-                $header
+                esc_html($payload),
+                esc_html($header)
             );
         }
 
@@ -66,8 +66,8 @@ abstract class WebhookSignature
         if (($tolerance > 0) && (\abs(\time() - $timestamp) > $tolerance)) {
             throw Exception\SignatureVerificationException::factory(
                 'Timestamp outside the tolerance zone',
-                $payload,
-                $header
+                esc_html($payload),
+                esc_html($header)
             );
         }
 

@@ -43,7 +43,7 @@ class CashBalance extends ApiResource
                'customer ID. Retrieve a Customer Cash Balance using ' .
                "`Customer::retrieveCashBalance('customer_id')`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 
     /**
@@ -59,6 +59,6 @@ class CashBalance extends ApiResource
         'customer ID. Retrieve a Customer Cash Balance using ' .
         "`Customer::updateCashBalance('customer_id')`.";
 
-        throw new Exception\BadMethodCallException($msg);
+        throw new Exception\BadMethodCallException(esc_html($msg));
     }
 }

@@ -133,16 +133,16 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
     {
         if (static::getPermanentAttributes()->includes($k)) {
             throw new Exception\InvalidArgumentException(
-                "Cannot set {$k} on this object. HINT: you can't set: " .
-                \implode(', ', static::getPermanentAttributes()->toArray())
+                esc_html("Cannot set {$k} on this object. HINT: you can't set: " .
+                \implode(', ', static::getPermanentAttributes()->toArray()))
             );
         }
 
         if ('' === $v) {
             throw new Exception\InvalidArgumentException(
-                'You cannot set \'' . $k . '\'to an empty string. '
+                esc_html('You cannot set \'' . $k . '\'to an empty string. '
                 . 'We interpret empty strings as NULL in requests. '
-                . 'You may set obj->' . $k . ' = NULL to delete the property'
+                . 'You may set obj->' . $k . ' = NULL to delete the property')
             );
         }
 
@@ -418,9 +418,9 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
             }
 
             throw new Exception\InvalidArgumentException(
-                "Cannot save property `{$key}` containing an API resource of type " .
+                esc_html("Cannot save property `{$key}` containing an API resource of type " .
                     \get_class($value) . ". It doesn't appear to be persisted and is " .
-                    'not marked as `saveWithParent`.'
+                    'not marked as `saveWithParent`.')
             );
         }
         if (\is_array($value)) {
@@ -572,7 +572,7 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
             $values = $obj->_values;
         } else {
             throw new Exception\InvalidArgumentException(
-                'empty_values got unexpected object type: ' . \get_class($obj)
+                esc_html('empty_values got unexpected object type: ' . \get_class($obj))
             );
         }
 

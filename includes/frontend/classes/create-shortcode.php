@@ -37,12 +37,14 @@ class MXCPFC_Create_Shortcode
 
 		$current_url = home_url(add_query_arg(null, null));
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if (!isset($_GET['payment_request'])) {
 
 			return 'invalid request.';
 		}
 
-		$payment_request = $_GET['payment_request'];
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only lookup by opaque token, no state change.
+		$payment_request = sanitize_text_field( wp_unslash( $_GET['payment_request'] ) );
 
 		// if valid request
 		if ($payment_request !== NULL) {
@@ -53,7 +55,8 @@ class MXCPFC_Create_Shortcode
 		$valid_meta = false;
 
 		// get meta data
-		$row_meta = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_value = '" . $payment_request . "'");
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$row_meta = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE meta_value = %s", $payment_request ) );
 
 		// if valid valid meta
 		if ($row_meta !== NULL) {
@@ -109,7 +112,7 @@ class MXCPFC_Create_Shortcode
 
 			$thanks_text = str_replace(array("\n", "\n\r"), '<br />', $text);
 
-			echo $thanks_text;
+			echo wp_kses( $thanks_text, array( 'br' => array() ) );
 
 			?>
 
@@ -152,6 +155,7 @@ class MXCPFC_Create_Shortcode
 
 		ob_start();
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if (!isset($_GET['donation'])) {
 
 			mxcpfc_include_component('donation/donation-form');

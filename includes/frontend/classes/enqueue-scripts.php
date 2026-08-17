@@ -30,6 +30,10 @@ class MXCPFC_Enqueue_Scripts_Frontend
 
 		$unserialize_options = maybe_unserialize($payment_options);
 
+		if (!is_array($unserialize_options)) {
+			$unserialize_options = array();
+		}
+
 		wp_enqueue_style('mxcpfc_font_awesome', MXCPFC_PLUGIN_URL . 'assets/font-awesome-4.6.3/css/font-awesome.min.css');
 
 		wp_enqueue_style('mxcpfc_style', MXCPFC_PLUGIN_URL . 'includes/frontend/assets/css/style.css', array('mxcpfc_font_awesome'), MXCPFC_PLUGIN_VERSION, 'all');
@@ -41,8 +45,8 @@ class MXCPFC_Enqueue_Scripts_Frontend
 		wp_localize_script('mxcpfc_script', 'mxcpfc_js_obj', array(
 			'ajaxurl' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('nonce_payment_confirm'),
-			'owner_email' => $unserialize_options['company_email'],
-			'pk_stripe_key' => $unserialize_options['publishable_key']
+			'owner_email' => isset($unserialize_options['company_email']) ? $unserialize_options['company_email'] : '',
+			'pk_stripe_key' => isset($unserialize_options['publishable_key']) ? $unserialize_options['publishable_key'] : ''
 		));
 	}
 }

@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Create a payment request. Donation form
-Plugin URI: https://github.com/Maxim-us/create-payment-for-client
+Plugin URI: https://github.com/Maksym-Marko/create-payment-for-client
 Description: Stripe payment gateway. You can create a payment request for your client. There is functionality to create a Donation page.
 Author: Maksym Marko
-Version: 4.1
-Author URI: https://github.com/Maxim-us
+Version: 5.0
+Author URI: https://github.com/Maksym-Marko
+License: GPL-2.0+
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Exit if accessed directly
@@ -104,16 +106,7 @@ if (!class_exists('MXCPFCCreatePaymentForClient')) {
 
 	require_once plugin_dir_path(__FILE__) . 'includes/final-class.php';
 
-	/*
-	* Translate plugin
-	*/
-	add_action('plugins_loaded', 'mxcpfc_translate');
-
-	function mxcpfc_translate()
-	{
-
-		load_plugin_textdomain('mxcpfc-domain', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-	}
+	// Translations for plugins hosted on WordPress.org are loaded automatically since WP 4.6.
 
 	// add settings link
 	add_filter('plugin_action_links', 'mxcpfc_plugin_action_links', 10, 2);

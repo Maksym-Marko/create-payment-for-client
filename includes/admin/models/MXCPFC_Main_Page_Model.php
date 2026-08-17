@@ -24,36 +24,44 @@ class MXCPFC_Main_Page_Model extends MXCPFC_Model
 	public function mxcpfc_get_options()
 	{
 
+		$defaults = array(
+			'publishable_key' 			=> '',
+			'secret_key' 				=> '',
+			'process_page_url' 			=> '',
+			'contact_us_page' 			=> '',
+			'company_email'				=> '',
+			'noreply_email' 			=> '',
+			'department_company' 		=> '',
+			'company_name' 				=> '',
+			'company_address' 			=> '',
+			'company_phone' 			=> '',
+			'message_for_client' 		=> '',
+			'thank_you_message' 		=> '',
+			'invalid_request_message' 	=> '',
+			'enable_iban' 				=> ''
+		);
+
 		$payment_options = get_option('_mx_create_paymetn_options');
 
 		if ($payment_options) {
 
 			$unserialize_options = maybe_unserialize($payment_options);
 
-			return $unserialize_options;
+			return wp_parse_args($unserialize_options, $defaults);
 		}
 
-		return array(
-			'publishable_key' 		=> '',
-			'secret_key' 			=> '',
-			'process_page_url' 		=> '',
-			'company_email'			=> '',
-			'noreply_email' 		=> '',
-			'department_company' 	=> '',
-			'company_name' 			=> '',
-			'message_for_client' 	=> '',
-			'thank_you_message' 	=> ''
-		);
+		return $defaults;
 	}
 
 	public static function mxcpfc_prepare_options_update()
 	{
 
 		// Checked POST nonce is not empty
-		if (empty($_POST['nonce'])) wp_die('0');
+		$mxcpfc_nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( empty( $mxcpfc_nonce ) ) wp_die( '0' );
 
 		// Checked or nonce match
-		if (wp_verify_nonce($_POST['nonce'], 'mxcpfc_nonce_request')) {
+		if ( wp_verify_nonce( $mxcpfc_nonce, 'mxcpfc_nonce_request' ) ) {
 
 			// Add map
 			self::_mxcpfc_options_update($_POST);
